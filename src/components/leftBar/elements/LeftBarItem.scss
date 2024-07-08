@@ -1,0 +1,24 @@
+.left-bar-item {
+    background-color: $primaryBlue;
+    color: white; 
+    width: 200px;
+    height: 50px;
+    align-content: center;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    list-style: none;
+}
+
+li:hover {
+    background-color: $whitePrincipal;
+    color: $primaryGreen;
+}
+
+.icon-non-collapsed {
+    margin: 0px 15px 5px 0px;
+}
+
+.icon-collapsed {
+    margin: 0px 0px 5px 140px;
+}

@@ -1,0 +1,37 @@
+.primary-button {
+  width: 100px;
+  height: 40px;
+  background-color: $primaryGreen;
+  color: $whitePrincipal;
+  border: solid;
+  border-color: $primaryGreen;
+  float: right;
+  margin-top: 10px;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: $whitePrincipal;
+    color: $primaryGreen;
+    border: solid;
+    border-color: $primaryGreen;
+  }
+}
+
+.warning-button {
+  width: 100px;
+  height: 40px;
+  background-color: $primaryYellow;
+  color: $primaryBlue;
+  border: solid;
+  border-color: $primaryYellow;
+  float: right;
+  margin-top: 10px;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: $whitePrincipal;
+    color: $primaryBlue;
+    border: solid;
+    border-color: $primaryYellow;
+  }
+}

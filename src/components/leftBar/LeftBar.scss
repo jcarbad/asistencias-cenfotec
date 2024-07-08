@@ -1,0 +1,44 @@
+.left-bar {
+    position: fixed;
+    top: 60px;
+    height: 100%;
+    width: 200px;
+    background-color: $primaryBlue;
+    z-index: 5;
+    transition: 1s;
+
+    svg{
+        transform:rotate(45deg);
+        transition: 1s;
+    }
+
+    ul {
+        margin-top: 5px;
+        float: inline-end;
+    }
+}
+
+.left-bar-collapsed {
+    position: fixed;
+    top: 60px;
+    height: 100%;
+    width: 60px;
+    background-color: $primaryBlue;
+    z-index: 5;
+    transition: 1s;
+
+    svg{
+        transform:rotate(0deg);
+        transition: 1s;
+    }
+
+    ul {
+        margin-top: 5px;
+        float: inline-end;
+    }
+}
+
+.plus-icon-non-collapsed {
+    width: 30px;
+    height: 30px;
+}
