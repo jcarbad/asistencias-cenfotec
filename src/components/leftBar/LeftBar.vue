@@ -18,7 +18,7 @@
         />
       </svg>
     <ul>
-      <LeftBarItem :name="'home'" :showOnlyIcon="isLeftBarCollapsed" />
+      <LeftBarItem :name="'groups'" :showOnlyIcon="isLeftBarCollapsed" />
       <LeftBarItem :name="'users'" :showOnlyIcon="isLeftBarCollapsed" />
     </ul>
   </div>
@@ -33,8 +33,10 @@ const isLeftBarCollapsed = ref(false);
 const collapseLeftBar = () => {
     isLeftBarCollapsed.value = !isLeftBarCollapsed.value
     if(isLeftBarCollapsed.value){
+      /* eslint-disable */
       document.getElementById("main-container")!.style.paddingLeft = "60px";
     } else {
+      /* eslint-disable */
       document.getElementById("main-container")!.style.paddingLeft = "200px";
     }
 }

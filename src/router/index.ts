@@ -7,9 +7,19 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/*webpackChunkName: "login" */ '../views/login/LoginView.vue')
   },
   {
+    path: '/recovery',
+    name: 'recovery',
+    component: () => import(/*webpackChunkName: "login" */ '../views/recovery/RecoveryView.vue')
+  },
+  {
     path: '/dashboard',
     name: 'dashboard',
     component: () => import(/* webpackChunkName: "about" */ '../views/dashboard/DashboardView.vue')
+  },
+  {
+    path: '/groups',
+    name: 'groups',
+    component: () => import(/* webpackChunkName: "about" */ '../pages/groups/GroupsPage.vue')
   },
   {
     path: '/home',

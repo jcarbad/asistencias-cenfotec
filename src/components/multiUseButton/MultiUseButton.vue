@@ -3,6 +3,7 @@
     :class="{
       'primary-button': buttonType === 'primary',
       'warning-button': buttonType === 'warning',
+      'link-button': buttonType === 'link',
     }"
     @click="loginEvent"
   >
@@ -29,7 +30,7 @@ const props = defineProps({
 const emit = defineEmits(["login"]);
 
 const loginEvent = () => {
-  emit("login");
+  //emit("login");
 };
 </script>
 
