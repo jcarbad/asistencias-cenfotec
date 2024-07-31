@@ -1,7 +1,7 @@
 <template>
   <table class="table table-striped">
     <thead class="table-header">
-      <th v-for="(item, index) in props.tableHeaders" :key="item.id" scope="col">
+      <th v-for="(item) in props.tableHeaders" :key="item.id" scope="col">
         {{ item.value }}
       </th>
     </thead>

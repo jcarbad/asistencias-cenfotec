@@ -1,7 +1,7 @@
 <template>
     <MainLayout>
         <template #content>
-            <div>
+            <div class="internal-container">
                 <h1>Users Page</h1>
             </div>
         </template>

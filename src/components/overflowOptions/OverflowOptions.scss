@@ -1,0 +1,20 @@
+.menu-items-container {
+    width: 100px; 
+    height: auto; 
+    position: absolute;
+    background-color: $whitePrincipal;
+    border-style: solid;
+    border-color: $primaryBlue;
+    border-width: 1px;
+  }
+
+  .item-container-options {
+    display: contents;
+  }
+
+  .overflow-button {
+    background-color: $primaryBeige;
+    border-radius: 5px;
+    border: solid 1px $primaryBlue;
+    color: $primaryBlue;
+  }

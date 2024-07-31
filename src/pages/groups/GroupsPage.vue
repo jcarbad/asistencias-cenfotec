@@ -1,7 +1,7 @@
 <template>
     <MainLayout>
         <template #content>
-            <div>
+            <div class="internal-container">
                 <h1>Groups Page</h1>
                 <DataTable :tableHeaders="tableHeaders">
                     <template #dataRows>
@@ -10,7 +10,7 @@
                             <td>{{ item.nivel }}</td>
                             <td>{{ item.grupo }}</td>
                             <td>{{ item.anno }}</td>
-                            <td><button>Modificar</button></td>
+                            <td><OverflowOptions /></td>
                         </tr>
                     </template>
                 </DataTable>
@@ -22,6 +22,7 @@
 <script lang="ts" setup>
 import MainLayout from '@/layouts/MainLayout.vue';
 import DataTable from '@/components/dataTable/DataTable.vue';
+import OverflowOptions from '@/components/overflowOptions/OverflowOptions.vue';
 
 const tableHeaders = [
     {

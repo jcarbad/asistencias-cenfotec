@@ -6,6 +6,7 @@ module.exports = defineConfig({
       scss: {
         additionalData: `
             @import "@/scss/_colors.scss";
+            @import "@/scss/_general.scss";
         `,
       },
     },
