@@ -2,7 +2,9 @@
     <header><MenuBar/></header>
     <nav><LeftBar/></nav>
     <main class="main-container" id="main-container">
-        <slot name="content"></slot>
+        <div class="internal-container">
+            <slot name="content"></slot>
+        </div>
     </main>
 </template>
 

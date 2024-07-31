@@ -1,9 +1,7 @@
 <template>
     <MainLayout>
         <template #content>
-            <div class="internal-container">
-                <h1>Users Page</h1>
-            </div>
+            <h1>Users Page</h1>
         </template>
     </MainLayout>
 </template>

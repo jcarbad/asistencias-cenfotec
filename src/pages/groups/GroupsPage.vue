@@ -1,51 +1,55 @@
 <template>
-    <MainLayout>
-        <template #content>
-            <div class="internal-container">
-                <h1>Groups Page</h1>
-                <DataTable :tableHeaders="tableHeaders">
-                    <template #dataRows>
-                        <tr v-for="item, index in tableData" :key="index">
-                            <td>{{ item.id }}</td>
-                            <td>{{ item.nivel }}</td>
-                            <td>{{ item.grupo }}</td>
-                            <td>{{ item.anno }}</td>
-                            <td><OverflowOptions /></td>
-                        </tr>
-                    </template>
-                </DataTable>
-            </div>
+  <MainLayout>
+    <template #content>
+      <h1>Groups Page</h1>
+      <DataTable :tableHeaders="tableHeaders" additionalInformation>
+        <template #additionalInformation>
+            <MultiUseButton :button-type="'primary'" :textValue="'Crear Grupo'" />
         </template>
-    </MainLayout>
+        <template #dataRows>
+          <tr v-for="(item, index) in tableData" :key="index">
+            <td>{{ item.id }}</td>
+            <td>{{ item.nivel }}</td>
+            <td>{{ item.grupo }}</td>
+            <td>{{ item.anno }}</td>
+            <td>
+              <MultiUseButton :textValue="'Editar'" :buttonType="'link'" />
+              <MultiUseButton :textValue="'Eliminar'" :buttonType="'link'" />
+            </td>
+          </tr>
+        </template>
+      </DataTable>
+    </template>
+  </MainLayout>
 </template>
 
 <script lang="ts" setup>
-import MainLayout from '@/layouts/MainLayout.vue';
-import DataTable from '@/components/dataTable/DataTable.vue';
-import OverflowOptions from '@/components/overflowOptions/OverflowOptions.vue';
+import MainLayout from "@/layouts/MainLayout.vue";
+import DataTable from "@/components/dataTable/DataTable.vue";
+import MultiUseButton from "@/components/multiUseButton/MultiUseButton.vue";
 
 const tableHeaders = [
-    {
-        id: "id",
-        value: "ID"
-    },
-    {
-        id: "nivel",
-        value: "Nivel"
-    },
-    {
-        id: "grupo",
-        value: "Grupo"
-    },
-    {
-        id: "anno",
-        value: "Año"
-    },
-    {
-        id: "acciones",
-        value: "Acciones"
-    },
-]
+  {
+    id: "id",
+    value: "ID",
+  },
+  {
+    id: "nivel",
+    value: "Nivel",
+  },
+  {
+    id: "grupo",
+    value: "Grupo",
+  },
+  {
+    id: "anno",
+    value: "Año",
+  },
+  {
+    id: "acciones",
+    value: "Acciones",
+  },
+];
 
 const tableData = [
   {
@@ -63,7 +67,6 @@ const tableData = [
     acciones: "",
   },
 ];
-
 </script>
 
 <style lang="scss" scoped>
