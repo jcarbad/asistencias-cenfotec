@@ -18,7 +18,7 @@ namespace Ausencias.API.Controllers
             return Ok(new { Result = "Estudiante created successfully" });
         }
 
-        [HttpGet("GetStudent")]
+        [HttpGet("Get")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Get()
         {
@@ -26,7 +26,7 @@ namespace Ausencias.API.Controllers
             return Ok(new { Result = estudiantes });
         }
 
-        [HttpGet("GetById")]
+        [HttpGet("Get/{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Get(int id)
         {
@@ -41,6 +41,16 @@ namespace Ausencias.API.Controllers
         {
             await estudiante.UpdateAsync();
             return Ok(new { Result = "Estudiante updated successfully" });
+        }
+
+        [HttpDelete("Delete/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var estudiante = new Estudiante();
+            estudiante.Id = id.ToString();
+            await estudiante.DeleteAsync();
+            return Ok(new { Result = "Estudiante Deleted successfully" });
         }
     }
 }
