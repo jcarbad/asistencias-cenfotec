@@ -22,6 +22,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "about" */ '../pages/groups/GroupsPage.vue')
   },
   {
+    path: '/groups/:id',
+    name: 'group',
+    component: () => import(/* webpackChunkName: "about" */ '../pages/groups/GroupsForm.vue')
+  },
+  {
     path: '/home',
     name: 'home',
     component: () => import(/* webpackChunkName: "about" */ '../pages/home/HomePage.vue')

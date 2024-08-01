@@ -18,8 +18,8 @@
         />
       </svg>
     <ul>
-      <LeftBarItem :name="'groups'" :showOnlyIcon="isLeftBarCollapsed" />
-      <LeftBarItem :name="'users'" :showOnlyIcon="isLeftBarCollapsed" />
+      <LeftBarItem :name="'Grupos'" :link="'groups'" :showOnlyIcon="isLeftBarCollapsed" />
+      <LeftBarItem :name="'Administrativos'" :link="'users'" :showOnlyIcon="isLeftBarCollapsed" />
     </ul>
   </div>
 </template>

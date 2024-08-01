@@ -2,6 +2,7 @@
   <button
     :class="{
       'primary-button': buttonType === 'primary',
+      'secondary-button': buttonType === 'secondary',
       'warning-button': buttonType === 'warning',
       'link-button': buttonType === 'link',
     }"
@@ -27,10 +28,10 @@ const props = defineProps({
 });
 
 // eslint-disable-next-line
-const emit = defineEmits(["login"]);
+const emit = defineEmits(["clickEvent"]);
 
 const loginEvent = () => {
-  //emit("login");
+ // emit("clickEvent");
 };
 </script>
 
