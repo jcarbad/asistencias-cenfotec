@@ -1,5 +1,5 @@
 .primary-button {
-  width: 100px;
+  width: auto;
   height: 40px;
   background-color: $primaryGreen;
   color: $whitePrincipal;
@@ -8,6 +8,8 @@
   float: right;
   margin-top: 10px;
   border-radius: 5px;
+  font-size: 16px;
+  font-weight: 700;
 
   &:hover {
     background-color: $whitePrincipal;
@@ -18,7 +20,7 @@
 }
 
 .warning-button {
-  width: 100px;
+  width: auto;
   height: 40px;
   background-color: $primaryYellow;
   color: $primaryBlue;
@@ -27,11 +29,29 @@
   float: right;
   margin-top: 10px;
   border-radius: 5px;
+  font-size: 16px;
+  font-weight: 700;
 
   &:hover {
     background-color: $whitePrincipal;
     color: $primaryBlue;
     border: solid;
     border-color: $primaryYellow;
+  }
+}
+
+.link-button {
+  width: auto;
+  height: 40px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  color: $primaryBlue;
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 10px;
+  
+  &:hover{
+    text-decoration: underline;
   }
 }

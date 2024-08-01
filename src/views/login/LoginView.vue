@@ -2,10 +2,11 @@
   <FormContainer>
     <template #formInformation>
       <fieldset>
-        <h1>Login</h1>
-        <TextField :textFieldType="'text'" :textFieldHeader="'Username'"/>
-        <TextField :textFieldType="'password'" :textFieldHeader="'Password'"/>
-        <MultiUseButton :text-value="'Login'" @login="loginVerifier" />
+        <h1>Ingresar</h1>
+        <TextField :textFieldType="'text'" :textFieldHeader="'Usuario'"/>
+        <TextField :textFieldType="'password'" :textFieldHeader="'Contraseña'"/>
+        <MultiUseButton :textValue="'Recuperar Contraseña'" :buttonType="'link'" @click="recoveryEvent"/>
+        <MultiUseButton :textValue="'Ingresar'" @click="loginVerifier" />
       </fieldset>
     </template>
   </FormContainer>
@@ -18,6 +19,10 @@ import FormContainer from "@/components/formContainer/FormContainer.vue";
 import MultiUseButton from "@/components/multiUseButton/MultiUseButton.vue";
 
 const router = useRouter();
+
+const recoveryEvent = () => {
+  router.push({name: "recovery"});
+}
 
 const loginVerifier = () => {
   router.push({name: "dashboard"});

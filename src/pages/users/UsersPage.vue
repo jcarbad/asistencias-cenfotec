@@ -1,9 +1,7 @@
 <template>
     <MainLayout>
         <template #content>
-            <div style="padding-left: 2%; padding-right: 2%; height: auto;">
-                <h1>Users Page</h1>
-            </div>
+            <h1>Users Page</h1>
         </template>
     </MainLayout>
 </template>
