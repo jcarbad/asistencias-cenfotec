@@ -36,6 +36,26 @@ const routes: Array<RouteRecordRaw> = [
     name: 'users',
     component: () => import(/* webpackChunkName: "about" */ '../pages/users/UsersPage.vue')
   },
+  {
+    path: '/users/:id',
+    name: 'user',
+    component: () => import(/* webpackChunkName: "about" */ '../pages/users/UserPage.vue')
+  },
+  {
+    path: '/students',
+    name: 'students',
+    component: () => import(/* webpackChunkName: "about" */ '../pages/students/StudentsPage.vue')
+  },
+  {
+    path: '/students/:id',
+    name: 'student',
+    component: () => import(/* webpackChunkName: "about" */ '../pages/students/StudentPage.vue')
+  },
+  {
+    path: '/attendance',
+    name: 'attendance',
+    component: () => import(/* webpackChunkName: "about" */ '../pages/attendance/AttendancePage.vue')
+  },
 ]
 
 const router = createRouter({

@@ -20,6 +20,8 @@
     <ul>
       <LeftBarItem :name="'Grupos'" :link="'groups'" :showOnlyIcon="isLeftBarCollapsed" />
       <LeftBarItem :name="'Administrativos'" :link="'users'" :showOnlyIcon="isLeftBarCollapsed" />
+      <LeftBarItem :name="'Estudiantes'" :link="'students'" :showOnlyIcon="isLeftBarCollapsed" />
+      <LeftBarItem :name="'Asistencia'" :link="'attendance'" :showOnlyIcon="isLeftBarCollapsed" />
     </ul>
   </div>
 </template>
@@ -32,13 +34,11 @@ const isLeftBarCollapsed = ref(false);
 
 const collapseLeftBar = () => {
     isLeftBarCollapsed.value = !isLeftBarCollapsed.value
-    if(isLeftBarCollapsed.value){
-      /* eslint-disable */
+    /*if(isLeftBarCollapsed.value){
       document.getElementById("main-container")!.style.paddingLeft = "60px";
     } else {
-      /* eslint-disable */
       document.getElementById("main-container")!.style.paddingLeft = "200px";
-    }
+    }*/
 }
 </script>
 

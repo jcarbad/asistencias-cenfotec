@@ -1,13 +1,13 @@
 <template>
   <MainLayout>
     <template #content>
-      <h1>Listado Administrativos</h1>
+      <h1>Listado Estudiantes</h1>
       <DataTable :tableHeaders="tableHeaders" additionalInformation>
         <template #additionalInformation>
           <MultiUseButton
             :button-type="'primary'"
-            :textValue="'Crear Administrativo'"
-            @click="createAdminEvent('0')"
+            :textValue="'Crear Estudiante'"
+            @click="createStudentEvent('0')"
           />
         </template>
         <template #dataRows>
@@ -62,30 +62,30 @@ const tableHeaders : IDataTableInfo[] = [
 const tableData = [
   {
     id: "111111111",
-    nombre: "Armando José",
+    nombre: "Armando",
     apellido1: "Ayala",
     apellido2: "Córdoba",
     acciones: "",
   },
   {
     id: "222222222",
-    nombre: "Jose Leonardo",
+    nombre: "Leonardo",
     apellido1: "Araya",
     apellido2: "Parajeles",
     acciones: "",
   },
   {
     id: "333333333",
-    nombre: "Joan Armando",
+    nombre: "Joan",
     apellido1: "Carballo",
     apellido2: "Badilla",
     acciones: "",
   },
 ];
 
-const createAdminEvent = (id:string) => {
+const createStudentEvent = (id:string) => {
   router.push({
-    name: 'user',
+    name: 'student',
     params: {
       id: id
     }
@@ -95,5 +95,5 @@ const createAdminEvent = (id:string) => {
 </script>
 
 <style lang="scss" scoped>
-@import "./UsersPage.scss";
+@import "./StudentsPage.scss";
 </style>

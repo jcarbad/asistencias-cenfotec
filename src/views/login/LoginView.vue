@@ -1,5 +1,5 @@
 <template>
-  <FormContainer>
+  <FormContainer isCentered>
     <template #formInformation>
       <fieldset>
         <h1>Ingresar</h1>
