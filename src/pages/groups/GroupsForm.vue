@@ -2,12 +2,12 @@
   <MainLayout>
     <template #content>
       <h1>Información de Grupo</h1>
-      <FormContainer style="width: 50vw; margin-left: auto; margin-right: auto">
+      <FormContainer style="width: 45vw; margin-left: auto; margin-right: auto">
         <template #formInformation>
           <fieldset>
             <div class="container">
               <div class="row">
-                <div class="col-sm table-col-content col-left">
+                <div class="col-sm table-col-content col-right">
                   <DropdownOptions :title="'Nivel'" :itemValues="nivelItems" />
                 </div>
                 <div class="col-sm table-col-content col-left">
@@ -15,7 +15,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm table-col-content col-left">
+                <div class="col-sm table-col-content col-right">
                   <DropdownOptions :title="'Año'" :itemValues="annoItems" />
                 </div>
                 <div class="col-sm table-col-content col-left">

@@ -34,11 +34,11 @@ const isLeftBarCollapsed = ref(false);
 
 const collapseLeftBar = () => {
     isLeftBarCollapsed.value = !isLeftBarCollapsed.value
-    /*if(isLeftBarCollapsed.value){
+    if(isLeftBarCollapsed.value){
       document.getElementById("main-container")!.style.paddingLeft = "60px";
     } else {
       document.getElementById("main-container")!.style.paddingLeft = "200px";
-    }*/
+    }
 }
 </script>
 

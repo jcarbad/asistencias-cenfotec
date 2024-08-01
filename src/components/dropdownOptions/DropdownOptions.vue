@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 200px;">
+  <div style="margin-top: 10px; width: 300px;">
     <label class="dropdown-label-standard">
       {{ props.title }}
       <select class="dropdown-standard">
