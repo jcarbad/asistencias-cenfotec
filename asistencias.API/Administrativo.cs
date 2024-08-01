@@ -6,7 +6,7 @@ namespace Ausencias.API
 {
     public class Administrativo : Entity
     {
-        public Administrativo(string connectionStringName) : base("conectionCtring")
+        public Administrativo() : base("conectionCtring")
         {
         }
 
@@ -27,7 +27,21 @@ namespace Ausencias.API
 
         [Column("email")]
         public string Email { get; set; }
-
+        [Column("Estatus")]
+        public string Estatus { get; set; }
         public override string TableName => "administrativos";
+
+        public async Task<Administrativo> Create()
+        {
+            this.AdministrativoId = Guid.NewGuid().ToString();
+            int newId = await this.InsertAsync();
+            return this;
+        }
+
+        public static async Task<List<Administrativo>> Get()
+        {
+            var estudiante = new Administrativo();
+            return await estudiante.GetAllAsync<Administrativo>();
+        }
     }
 }

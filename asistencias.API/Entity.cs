@@ -53,7 +53,7 @@ namespace Ausencias.API
             var columnNames = string.Join(", ", filteredColumns.Keys);
             var parameterNames = string.Join(", ", GetParameterNames(filteredColumns.Keys));
 
-            var query = $"INSERT INTO {TableName} ({columnNames}) OUTPUT INSERTED.ID VALUES ({parameterNames})";
+            var query = $"INSERT INTO {TableName} ({columnNames})  VALUES ({parameterNames})";
             try
             {
                 var newId = await ExecuteScalarAsync(query, filteredColumns);
@@ -78,7 +78,18 @@ namespace Ausencias.API
 
         public async Task DeleteAsync()
         {
-            var query = $"DELETE FROM {TableName} WHERE Id = @Id";
+            var query = $"Update {TableName} set Estatus = 'Inactivo' WHERE Id = @Id";
+            var parameters = new Dictionary<string, object>
+        {
+            { "@Id", GetType().GetProperty("Id").GetValue(this) }
+        };
+
+            await ExecuteNonQueryAsync(query, parameters);
+        }
+
+        public async Task DeleteNoIdAsync(string key)
+        {
+            var query = $"Update {TableName} set Estatus = 'Inactivo' WHERE {key} = @Id";
             var parameters = new Dictionary<string, object>
         {
             { "@Id", GetType().GetProperty("Id").GetValue(this) }
@@ -132,13 +143,13 @@ namespace Ausencias.API
                             }
                             command.Parameters.Add(new SqlParameter(parameter.Key, value ?? DBNull.Value));
                         }
-                        var idParameter = new SqlParameter("@id", SqlDbType.Int) { Direction = ParameterDirection.Output };
-                        command.Parameters.Add(idParameter);
+                        //var idParameter = new SqlParameter("@id", SqlDbType.Int) { Direction = ParameterDirection.Output };
+                        //command.Parameters.Add(idParameter);
 
                         await connection.OpenAsync();
                         await command.ExecuteNonQueryAsync();
-                        var generatedId = (int)idParameter.Value;
-                        return generatedId;
+                        //var generatedId = (int)idParameter.Value;
+                        return 1;
                     }
                 }
             }
@@ -177,7 +188,13 @@ namespace Ausencias.API
                         query = $"SELECT * FROM {TableName} ";
 
                         if (!String.IsNullOrEmpty(where))
-                            query += where;
+                        {
+                            query += where + " and Estatus != 'Inactivo' or Estatus is null";
+                        }
+                        else
+                        {
+                            query += "where Estatus != 'Inactivo' or Estatus is null";
+                        }
                     }
 
                     // Log the query to debug
@@ -214,7 +231,7 @@ namespace Ausencias.API
 
             using (var connection = new SqlConnection(_connectionString))
             {
-                var query = $"SELECT * FROM {TableName} WHERE Id = @Id";
+                var query = $"SELECT * FROM {TableName} WHERE Id = @Id and Estatus != 'Inactivo' or Estatus is null";
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.Add(new SqlParameter("@Id", id));

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace Ausencias.API
 {
@@ -11,8 +12,6 @@ namespace Ausencias.API
         public Estudiante() : base("connectionStringName")
         {
         }
-
-        
 
         [Column("estudianteId")]
         public string EstudianteId { get; set; }
@@ -43,12 +42,14 @@ namespace Ausencias.API
 
         [Column("creadoPor")]
         public string CreadoPor { get; set; }
+        [Column("Estatus")]
+        public string Estatus { get; set; }
 
-        
         public override string TableName => "estudiantes";
 
         public async Task<Estudiante> Create()
         {
+            this.EstudianteId = Guid.NewGuid().ToString();
             int newId = await this.InsertAsync();
             return this;
         }
@@ -57,7 +58,6 @@ namespace Ausencias.API
         {
             var estudiante = new Estudiante();
             return await estudiante.GetAllAsync<Estudiante>();
-            
         }
     }
 }
