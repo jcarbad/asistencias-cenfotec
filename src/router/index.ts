@@ -118,11 +118,7 @@ const router = createRouter({
   routes,
 });
 
-/*router.beforeEach((to, from, next) => {
-  console.log("Entra al beforeEach()");
-  console.dir("from - " + from.path);
-  console.dir("to - " + to.path);
-  console.log("Current User - " + useUserStore().currentUser);
+router.beforeEach((to, from, next) => {
   const auth = useUserStore().currentUser !== "";
   const needAuth = to.meta.requireAuth;
   if (needAuth && !auth) {
@@ -130,6 +126,6 @@ const router = createRouter({
   } else {
     next();
   }
-});*/
+});
 
 export default router;
