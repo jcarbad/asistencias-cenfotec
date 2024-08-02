@@ -29,6 +29,7 @@
 import { ref } from 'vue';
 import MenuItem from './elements/MenuItem.vue'
 import { useRouter } from 'vue-router';
+import { useUserStore } from "@/store/useUserStore";
 
 // eslint-disable-next-line
 const props = defineProps({
@@ -40,6 +41,7 @@ const props = defineProps({
 });
 
 const router = useRouter();
+const userStore = useUserStore();
 
 const isMenuOptionsVisible = ref(false)
 
@@ -48,6 +50,7 @@ const openMenuOptions = () => {
 }
 
 const logoutEvent = () => {
+  userStore.resetStateValues()
   router.push({name: 'login'})
 }
 

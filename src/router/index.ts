@@ -1,66 +1,135 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { useUserStore } from "@/store/useUserStore";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
-    name: 'login',
-    component: () => import(/*webpackChunkName: "login" */ '../views/login/LoginView.vue')
+    path: "/",
+    name: "login",
+    meta: {
+      requireAuth: false,
+    },
+    component: () =>
+      import(/*webpackChunkName: "login" */ "../views/login/LoginView.vue"),
   },
   {
-    path: '/recovery',
-    name: 'recovery',
-    component: () => import(/*webpackChunkName: "login" */ '../views/recovery/RecoveryView.vue')
+    path: "/recovery",
+    name: "recovery",
+    meta: {
+      requireAuth: false,
+    },
+    component: () =>
+      import(
+        /*webpackChunkName: "login" */ "../views/recovery/RecoveryView.vue"
+      ),
   },
   {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: () => import(/* webpackChunkName: "about" */ '../views/dashboard/DashboardView.vue')
+    path: "/dashboard",
+    name: "dashboard",
+    meta: {
+      requireAuth: true,
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "../views/dashboard/DashboardView.vue"
+      ),
   },
   {
-    path: '/groups',
-    name: 'groups',
-    component: () => import(/* webpackChunkName: "about" */ '../pages/groups/GroupsPage.vue')
+    path: "/groups",
+    name: "groups",
+    meta: {
+      requireAuth: true,
+    },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../pages/groups/GroupsPage.vue"),
   },
   {
-    path: '/groups/:id',
-    name: 'group',
-    component: () => import(/* webpackChunkName: "about" */ '../pages/groups/GroupsForm.vue')
+    path: "/groups/:id",
+    name: "group",
+    meta: {
+      requireAuth: true,
+    },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../pages/groups/GroupsForm.vue"),
   },
   {
-    path: '/home',
-    name: 'home',
-    component: () => import(/* webpackChunkName: "about" */ '../pages/home/HomePage.vue')
+    path: "/home",
+    name: "home",
+    meta: {
+      requireAuth: true,
+    },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../pages/home/HomePage.vue"),
   },
   {
-    path: '/users',
-    name: 'users',
-    component: () => import(/* webpackChunkName: "about" */ '../pages/users/UsersPage.vue')
+    path: "/users",
+    name: "users",
+    meta: {
+      requireAuth: true,
+    },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../pages/users/UsersPage.vue"),
   },
   {
-    path: '/users/:id',
-    name: 'user',
-    component: () => import(/* webpackChunkName: "about" */ '../pages/users/UserPage.vue')
+    path: "/users/:id",
+    name: "user",
+    meta: {
+      requireAuth: true,
+    },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../pages/users/UserPage.vue"),
   },
   {
-    path: '/students',
-    name: 'students',
-    component: () => import(/* webpackChunkName: "about" */ '../pages/students/StudentsPage.vue')
+    path: "/students",
+    name: "students",
+    meta: {
+      requireAuth: true,
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "../pages/students/StudentsPage.vue"
+      ),
   },
   {
-    path: '/students/:id',
-    name: 'student',
-    component: () => import(/* webpackChunkName: "about" */ '../pages/students/StudentPage.vue')
+    path: "/students/:id",
+    name: "student",
+    meta: {
+      requireAuth: true,
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "../pages/students/StudentPage.vue"
+      ),
   },
   {
-    path: '/attendance',
-    name: 'attendance',
-    component: () => import(/* webpackChunkName: "about" */ '../pages/attendance/AttendancePage.vue')
+    path: "/attendance",
+    name: "attendance",
+    meta: {
+      requireAuth: true,
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "../pages/attendance/AttendancePage.vue"
+      ),
   },
-]
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+/*router.beforeEach((to, from, next) => {
+  console.log("Entra al beforeEach()");
+  console.dir("from - " + from.path);
+  console.dir("to - " + to.path);
+  console.log("Current User - " + useUserStore().currentUser);
+  const auth = useUserStore().currentUser !== "";
+  const needAuth = to.meta.requireAuth;
+  if (needAuth && !auth) {
+    next("/"); // se agrega el name de la ruta
+  } else {
+    next();
+  }
+});*/
+
+export default router;

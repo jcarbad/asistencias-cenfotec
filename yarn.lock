@@ -1900,7 +1900,7 @@
   optionalDependencies:
     prettier "^1.18.2 || ^2.0.0"
 
-"@vue/devtools-api@^6.5.0", "@vue/devtools-api@^6.5.1":
+"@vue/devtools-api@^6.5.1", "@vue/devtools-api@^6.6.3":
   version "6.6.3"
   resolved "https://registry.npmjs.org/@vue/devtools-api/-/devtools-api-6.6.3.tgz"
   integrity sha512-0MiMsFma/HqA6g3KLKn+AGpL1kgKhFWszC9U29NfpWK5LE7bjeXxySWJrOJ77hBz+TBrBQ7o4QJqbPbqbs8rJw==
@@ -2458,6 +2458,15 @@ aws4@^1.8.0:
   resolved "https://registry.npmjs.org/aws4/-/aws4-1.13.0.tgz"
   integrity sha512-3AungXC4I8kKsS9PuS4JH2nc+0bVY/mjgrephHTIi8fpEeGsTHBUJeosp0Wc1myYMElmD0B3Oc4XL/HVJ4PV2g==
 
+axios@^1, axios@^1.7.3:
+  version "1.7.3"
+  resolved "https://registry.npmjs.org/axios/-/axios-1.7.3.tgz"
+  integrity sha512-Ar7ND9pU99eJ9GpoGQKhKf58GpUOgnzuaB7ueNQ5BMi0p+LZ5oaEnfF999fAArcTIBwXTCHAmGcHOZJaWPq9Nw==
+  dependencies:
+    follow-redirects "^1.15.6"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
+
 babel-core@^7.0.0-bridge:
   version "7.0.0-bridge.0"
   resolved "https://registry.npmjs.org/babel-core/-/babel-core-7.0.0-bridge.0.tgz"
@@ -2951,7 +2960,7 @@ colorette@^2.0.10:
   resolved "https://registry.npmjs.org/colorette/-/colorette-2.0.20.tgz"
   integrity sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==
 
-combined-stream@^1.0.6, combined-stream@~1.0.6:
+combined-stream@^1.0.6, combined-stream@^1.0.8, combined-stream@~1.0.6:
   version "1.0.8"
   resolved "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz"
   integrity sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==
@@ -4223,7 +4232,7 @@ focus-trap@^7, focus-trap@^7.5.4:
   dependencies:
     tabbable "^6.2.0"
 
-follow-redirects@^1.0.0:
+follow-redirects@^1.0.0, follow-redirects@^1.15.6:
   version "1.15.6"
   resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.6.tgz"
   integrity sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==
@@ -4263,6 +4272,15 @@ fork-ts-checker-webpack-plugin@^6.4.0:
     schema-utils "2.7.0"
     semver "^7.3.2"
     tapable "^1.0.0"
+
+form-data@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/form-data/-/form-data-4.0.0.tgz"
+  integrity sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==
+  dependencies:
+    asynckit "^0.4.0"
+    combined-stream "^1.0.8"
+    mime-types "^2.1.12"
 
 form-data@~2.3.2:
   version "2.3.3"
@@ -6275,13 +6293,18 @@ pify@^4.0.1:
   resolved "https://registry.npmjs.org/pify/-/pify-4.0.1.tgz"
   integrity sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==
 
-pinia@^2.1.7:
-  version "2.1.7"
-  resolved "https://registry.npmjs.org/pinia/-/pinia-2.1.7.tgz"
-  integrity sha512-+C2AHFtcFqjPih0zpYuvof37SFxMQ7OEG2zV9jRI12i9BOy3YQVAHwdKtyyc8pDcDyIc33WCIsZaCFWU7WWxGQ==
+pinia-plugin-persistedstate@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.npmjs.org/pinia-plugin-persistedstate/-/pinia-plugin-persistedstate-3.2.1.tgz"
+  integrity sha512-MK++8LRUsGF7r45PjBFES82ISnPzyO6IZx3CH5vyPseFLZCk1g2kgx6l/nW8pEBKxxd4do0P6bJw+mUSZIEZUQ==
+
+pinia@^2.0.0, pinia@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.npmjs.org/pinia/-/pinia-2.2.0.tgz"
+  integrity sha512-iPrIh26GMqfpUlMOGyxuDowGmYousTecbTHFwT0xZ1zJvh23oQ+Cj99ZoPQA1TnUPhU6AuRPv6/drkTCJ0VHQA==
   dependencies:
-    "@vue/devtools-api" "^6.5.0"
-    vue-demi ">=0.14.5"
+    "@vue/devtools-api" "^6.6.3"
+    vue-demi "^0.14.8"
 
 pkg-dir@^4.1.0:
   version "4.2.0"
@@ -6617,6 +6640,11 @@ proxy-addr@~2.0.7:
   dependencies:
     forwarded "0.2.0"
     ipaddr.js "1.9.1"
+
+proxy-from-env@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-1.1.0.tgz"
+  integrity sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==
 
 pseudomap@^1.0.2:
   version "1.0.2"
@@ -8152,7 +8180,7 @@ vue-cli-plugin-s3-deploy@^4.0.0-rc4:
     lodash "^4.17.11"
     mime-types "^2.1.18"
 
-vue-demi@>=0.14.5:
+vue-demi@^0.14.8:
   version "0.14.8"
   resolved "https://registry.npmjs.org/vue-demi/-/vue-demi-0.14.8.tgz"
   integrity sha512-Uuqnk9YE9SsWeReYqK2alDI5YzciATE0r2SkA6iMAtuXvNTMNACJLJEXNXaEy94ECuBe4Sk6RzRU80kjdbIo1Q==
