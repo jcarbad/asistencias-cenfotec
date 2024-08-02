@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: 10px;">
+  <div style="margin-top: 10px; width: 300px;">
     <label class="textfield-label-standard">
       {{ props.textFieldHeader }}
       <input

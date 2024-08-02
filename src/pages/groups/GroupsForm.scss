@@ -1,0 +1,16 @@
+.table-col-content {
+  margin-top: 10px;
+  display: flex;
+
+  &.col-centered {
+    justify-content: center;
+  }
+
+  &.col-left {
+    justify-content: left;
+  }
+
+  &.col-right {
+    justify-content: right;
+  }
+}

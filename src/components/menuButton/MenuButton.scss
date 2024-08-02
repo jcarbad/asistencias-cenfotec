@@ -4,7 +4,7 @@
   margin-right: 15px;
   height: 40px;
   width: auto;
-  background-color: $primaryGreen;
+  background-color: $primaryBlue;
   color: $whitePrincipal;
   box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.1);
   border: 2px;
@@ -20,12 +20,12 @@
 
   &:hover {
     background-color: $whitePrincipal;
-    color: $primaryGreen;
-    border-color: $primaryGreen;
+    color: $primaryBlue;
+    border-color: $primaryBlue;
     border-style: solid;
   
     svg {
-      color: $primaryGreen;
+      color: $primaryBlue;
     }
   }
 }

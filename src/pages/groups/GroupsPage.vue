@@ -1,10 +1,10 @@
 <template>
   <MainLayout>
     <template #content>
-      <h1>Groups Page</h1>
+      <h1>Listado de Grupos</h1>
       <DataTable :tableHeaders="tableHeaders" additionalInformation>
         <template #additionalInformation>
-            <MultiUseButton :button-type="'primary'" :textValue="'Crear Grupo'" />
+            <MultiUseButton :button-type="'primary'" :textValue="'Crear Grupo'" @click="createGroupEvent('0')" />
         </template>
         <template #dataRows>
           <tr v-for="(item, index) in tableData" :key="index">
@@ -27,8 +27,12 @@
 import MainLayout from "@/layouts/MainLayout.vue";
 import DataTable from "@/components/dataTable/DataTable.vue";
 import MultiUseButton from "@/components/multiUseButton/MultiUseButton.vue";
+import { IDataTableInfo } from "@/models/IDataTableInfo";
+import { useRouter } from "vue-router";
 
-const tableHeaders = [
+const router = useRouter();
+
+const tableHeaders : IDataTableInfo[] = [
   {
     id: "id",
     value: "ID",
@@ -67,6 +71,16 @@ const tableData = [
     acciones: "",
   },
 ];
+
+const createGroupEvent = (id:string) => {
+  router.push({
+    name: 'group',
+    params: {
+      id: id
+    }
+  });
+};
+
 </script>
 
 <style lang="scss" scoped>

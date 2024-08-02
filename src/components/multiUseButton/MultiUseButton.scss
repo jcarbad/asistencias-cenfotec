@@ -1,21 +1,44 @@
 .primary-button {
   width: auto;
   height: 40px;
-  background-color: $primaryGreen;
+  background-color: $primaryBlue;
   color: $whitePrincipal;
   border: solid;
-  border-color: $primaryGreen;
+  border-color: $primaryBlue;
   float: right;
   margin-top: 10px;
+  margin-left: 10px;
   border-radius: 5px;
   font-size: 16px;
   font-weight: 700;
 
   &:hover {
     background-color: $whitePrincipal;
-    color: $primaryGreen;
+    color: $primaryBlue;
     border: solid;
-    border-color: $primaryGreen;
+    border-color: $primaryBlue;
+  }
+}
+
+.secondary-button {
+  width: auto;
+  height: 40px;
+  background-color: $whitePrincipal;
+  color: $primaryBlue;
+  border: solid;
+  border-color: $primaryBlue;
+  float: right;
+  margin-top: 10px;
+  margin-left: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 700;
+
+  &:hover {
+    background-color: $primaryBlue;
+    color: $whitePrincipal;
+    border: solid;
+    border-color: $primaryBlue;
   }
 }
 
@@ -28,6 +51,7 @@
   border-color: $primaryYellow;
   float: right;
   margin-top: 10px;
+  margin-left: 10px;
   border-radius: 5px;
   font-size: 16px;
   font-weight: 700;

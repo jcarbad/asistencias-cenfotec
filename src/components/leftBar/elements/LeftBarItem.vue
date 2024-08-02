@@ -25,6 +25,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  link: {
+    type: String,
+    required: true,
+  },
   showOnlyIcon: {
     type: Boolean,
     required: true,
@@ -36,7 +40,7 @@ const router = useRouter();
 
 const routerLinkEvent = () => {
   router.push({
-    name: props.name,
+    name: props.link,
   });
 };
 </script>

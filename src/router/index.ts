@@ -22,6 +22,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "about" */ '../pages/groups/GroupsPage.vue')
   },
   {
+    path: '/groups/:id',
+    name: 'group',
+    component: () => import(/* webpackChunkName: "about" */ '../pages/groups/GroupsForm.vue')
+  },
+  {
     path: '/home',
     name: 'home',
     component: () => import(/* webpackChunkName: "about" */ '../pages/home/HomePage.vue')
@@ -30,6 +35,26 @@ const routes: Array<RouteRecordRaw> = [
     path: '/users',
     name: 'users',
     component: () => import(/* webpackChunkName: "about" */ '../pages/users/UsersPage.vue')
+  },
+  {
+    path: '/users/:id',
+    name: 'user',
+    component: () => import(/* webpackChunkName: "about" */ '../pages/users/UserPage.vue')
+  },
+  {
+    path: '/students',
+    name: 'students',
+    component: () => import(/* webpackChunkName: "about" */ '../pages/students/StudentsPage.vue')
+  },
+  {
+    path: '/students/:id',
+    name: 'student',
+    component: () => import(/* webpackChunkName: "about" */ '../pages/students/StudentPage.vue')
+  },
+  {
+    path: '/attendance',
+    name: 'attendance',
+    component: () => import(/* webpackChunkName: "about" */ '../pages/attendance/AttendancePage.vue')
   },
 ]
 
