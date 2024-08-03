@@ -1,5 +1,6 @@
 <template>
   <button
+    alt="Botón de {{ props.textValue }}"
     :class="{
       'primary-button': buttonType === 'primary',
       'secondary-button': buttonType === 'secondary',

@@ -1,5 +1,9 @@
 <template>
-  <button class="menu-button" :class="{'menu-button-selected' : isMenuOptionsVisible}" @click="openMenuOptions">
+  <button
+      class="menu-button"
+      alt="Abrir menú de acciones de usuario"
+      :class="{'menu-button-selected' : isMenuOptionsVisible}"
+      @click="openMenuOptions">
     {{ props.username }}
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -19,8 +23,8 @@
   </button>
   <div v-show="isMenuOptionsVisible" class="menu-items-container">
     <ul class="item-container-options">
-      <MenuItem :itemValue="'Settings'" />
-      <MenuItem :itemValue="'Logout'" @logout="logoutEvent" />
+      <MenuItem :itemValue="'Configuración'" />
+      <MenuItem :itemValue="'Cerrar sesión'" @logout="logoutEvent" />
     </ul>
   </div>
 </template>

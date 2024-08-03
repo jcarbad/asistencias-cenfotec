@@ -3,7 +3,7 @@
       <div>
         <img
           src="@/assets/logo principal.png"
-          alt="ayala"
+          alt="Logo principal de la compañía"
           class="company-icon"
         />
         <MenuButton :username="userStore.currentUser" />
