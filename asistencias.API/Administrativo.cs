@@ -38,10 +38,10 @@ namespace Ausencias.API
             return this;
         }
 
-        public static async Task<List<Administrativo>> Get()
+        public static async Task<List<Administrativo>> Get(string where = null)
         {
             var estudiante = new Administrativo();
-            return await estudiante.GetAllAsync<Administrativo>();
+            return await estudiante.GetAllAsync<Administrativo>(where);
         }
     }
 }
