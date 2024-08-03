@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Ausencias.API.Controllers
 {
@@ -10,46 +12,84 @@ namespace Ausencias.API.Controllers
     {
         [HttpPost("Create")]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create(Grupo grupo)
+        public async Task<ActionResult> Create(Grupo grupo)
         {
-            grupo.GrupoId = Guid.NewGuid().ToString();
-            grupo.InsertAsync();
-            return Ok(new { Result = "Grupo created successfully" });
+            try
+            {
+                grupo.GrupoId = Guid.NewGuid().ToString();
+                await grupo.InsertAsync();
+                return Ok(new { Result = "Grupo created successfully", GrupoId = grupo.GrupoId });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (you can use a logging framework)
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = ex.Message });
+            }
         }
 
         [HttpGet("Get")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Get()
         {
-            var grupos = await Grupo.Get();
-            return Ok(new { Result = grupos });
+            try
+            {
+                var grupos = await Grupo.Get();
+                return Ok(new { Result = grupos });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = ex.Message });
+            }
         }
 
         [HttpGet("Get/{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Get(int id)
+        public async Task<ActionResult> Get(string id)
         {
-            var grupo = new Grupo();
-            var grupos = await grupo.GetByIdAsync<Grupo>(id);
-            return Ok(new { Result = grupos });
+            try
+            {
+                var grupos = await Grupo.Get($"Where grupoid = '{id}'");
+                return Ok(new { Result = grupos });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = ex.Message });
+            }
         }
 
         [HttpPatch("Update")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Update(Grupo grupo)
         {
-            await grupo.UpdateAsync();
-            return Ok(new { Result = "Grupo updated successfully" });
+            try
+            {
+                await grupo.UpdateAsync("GrupoId");
+                return Ok(new { Result = "Grupo updated successfully" });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = ex.Message });
+            }
         }
 
         [HttpDelete("Delete/{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(string id)
         {
-            var grupo = new Grupo();
-            grupo.GrupoId = id.ToString();
-            await grupo.DeleteNoIdAsync("grupoId");
-            return Ok(new { Result = "Administrativo Deleted successfully" });
+            try
+            {
+                var grupo = new Grupo { GrupoId = id.ToString() };
+                await grupo.DeleteNoIdAsync("GrupoId");
+                return Ok(new { Result = "Grupo deleted successfully" });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = ex.Message });
+            }
         }
     }
 }

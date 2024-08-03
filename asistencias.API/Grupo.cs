@@ -23,7 +23,7 @@ namespace Ausencias.API
         public int? GrupoNumero { get; set; }
 
         [Column("subgrupo")]
-        public char? SubGrupo { get; set; }
+        public string? SubGrupo { get; set; }
 
         [Column("anno")]
         public int? Anno { get; set; }
@@ -44,10 +44,10 @@ namespace Ausencias.API
             return this;
         }
 
-        public static async Task<List<Grupo>> Get()
+        public static async Task<List<Grupo>> Get(string where = null)
         {
             var grupo = new Grupo();
-            return await grupo.GetAllAsync<Grupo>();
+            return await grupo.GetAllAsync<Grupo>(where);
         }
     }
 }

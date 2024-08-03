@@ -54,10 +54,10 @@ namespace Ausencias.API
             return this;
         }
 
-        public static async Task<List<Estudiante>> Get()
+        public static async Task<List<Estudiante>> Get(string where = null)
         {
             var estudiante = new Estudiante();
-            return await estudiante.GetAllAsync<Estudiante>();
+            return await estudiante.GetAllAsync<Estudiante>(where);
         }
     }
 }

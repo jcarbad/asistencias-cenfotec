@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Ausencias.API.Controllers
 {
@@ -11,45 +14,84 @@ namespace Ausencias.API.Controllers
 
         [HttpPost("Create")]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create(Administrativo administrativo)
+        public async Task<ActionResult> Create(Administrativo administrativo)
         {
-            administrativo.InsertAsync();
-            return Ok(new { Result = "Administrativo created successfully" });
+            try
+            {
+                administrativo.AdministrativoId = Guid.NewGuid().ToString();
+                await administrativo.InsertAsync();
+                return Ok(new { Result = "Administrativo created successfully", AdministrativoId = administrativo.AdministrativoId });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (you can use a logging framework)
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = ex.Message });
+            }
         }
 
         [HttpGet("Get")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Get()
         {
-            var administrativos = await Administrativo.Get();
-            return Ok(new { Result = administrativos });
+            try
+            {
+                var administrativos = await Administrativo.Get();
+                return Ok(new { Result = administrativos });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = ex.Message });
+            }
         }
 
         [HttpGet("Get/{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Get(int id)
+        public async Task<ActionResult> Get(string id)
         {
-            var administrativo = new Administrativo();
-            var administrativos = await administrativo.GetByIdAsync<Administrativo>(id);
-            return Ok(new { Result = administrativos });
+            try
+            {
+                var administrativos = await Administrativo.Get($"Where administrativoId = '{id}'");
+                return Ok(new { Result = administrativos });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = ex.Message });
+            }
         }
 
         [HttpPatch("Update")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Update(Administrativo administrativo)
         {
-            await administrativo.UpdateAsync();
-            return Ok(new { Result = "Administrativo updated successfully" });
+            try
+            {
+                await administrativo.UpdateAsync("AdministrativoId");
+                return Ok(new { Result = "Administrativo updated successfully" });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = ex.Message });
+            }
         }
 
         [HttpDelete("Delete/{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(string id)
         {
-            var administrativo = new Administrativo();
-            administrativo.Id = id.ToString();
-            await administrativo.DeleteAsync();
-            return Ok(new { Result = "Administrativo Deleted successfully" });
+            try
+            {
+                var administrativo = new Administrativo { AdministrativoId = id.ToString() };
+                await administrativo.DeleteNoIdAsync("AdministrativoId");
+                return Ok(new { Result = "Administrativo deleted successfully" });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = ex.Message });
+            }
         }
 
     }

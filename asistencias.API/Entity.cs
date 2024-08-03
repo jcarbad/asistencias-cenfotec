@@ -24,7 +24,7 @@ namespace Ausencias.API
                 .AddEnvironmentVariables()
                 .Build();
 
-            _connectionString = "Server=leo;Database=Ausencias;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true;";
+            _connectionString = "Server=bd-asistencias.cx6u0ieuw6ab.us-east-1.rds.amazonaws.com,1433;Database=Ausencia;User Id=admin;Password=bd-asistencias;TrustServerCertificate=True;";
         }
 
         protected Dictionary<string, object> GetColumns()
@@ -49,7 +49,9 @@ namespace Ausencias.API
         public async Task<int> InsertAsync()
         {
             var columns = GetColumns();
-            var filteredColumns = columns.Where(c => c.Key.ToLower() != "id").ToDictionary(k => k.Key, v => v.Value);
+            //var filteredColumns = columns.Where(c => c.Key.ToLower() != "id").ToDictionary(k => k.Key, v => v.Value);
+            var filteredColumns = columns.ToDictionary(k => k.Key, v => v.Value);
+
             var columnNames = string.Join(", ", filteredColumns.Keys);
             var parameterNames = string.Join(", ", GetParameterNames(filteredColumns.Keys));
 
@@ -65,14 +67,25 @@ namespace Ausencias.API
             }
         }
 
-        public async Task UpdateAsync()
+        public async Task UpdateAsync(string key)
         {
             var columns = GetColumns();
             var setClause = string.Join(", ", GetSetClause(columns.Keys));
 
-            var query = $"UPDATE {TableName} SET {setClause} WHERE Id = @Id";
+            var query = $"UPDATE {TableName} SET {setClause} WHERE {key} = @{key}";
 
-            columns.Add("@Id", GetType().GetProperty("Id").GetValue(this));
+            var propertyValue = GetType().GetProperty(key)?.GetValue(this);
+
+            if (propertyValue == null)
+            {
+                throw new ArgumentException($"Property '{key}' not found or its value is null.");
+            }
+
+            var parameters = new Dictionary<string, object>
+            {
+                { $"@{key}", propertyValue }
+            };
+
             await ExecuteNonQueryAsync(query, columns);
         }
 
@@ -89,14 +102,22 @@ namespace Ausencias.API
 
         public async Task DeleteNoIdAsync(string key)
         {
-            var query = $"Update {TableName} set Estatus = 'Inactivo' WHERE {key} = @Id";
+            var query = $"UPDATE {TableName} SET Estatus = 'Inactivo' WHERE {key} = @{key}";
+            var propertyValue = GetType().GetProperty(key)?.GetValue(this);
+
+            if (propertyValue == null)
+            {
+                throw new ArgumentException($"Property '{key}' not found or its value is null.");
+            }
+
             var parameters = new Dictionary<string, object>
-        {
-            { "@Id", GetType().GetProperty("Id").GetValue(this) }
-        };
+            {
+                { $"@{key}", propertyValue }
+            };
 
             await ExecuteNonQueryAsync(query, parameters);
         }
+
 
         private async Task ExecuteNonQueryAsync(string query, Dictionary<string, object> parameters)
         {
@@ -119,12 +140,19 @@ namespace Ausencias.API
                     await connection.OpenAsync();
                     await command.ExecuteNonQueryAsync();
                 }
+                catch (SqlException ex) when (ex.Number == 547) // Foreign Key violation error number
+                {
+                    // Log the exception or handle it accordingly
+                    throw new Exception("Foreign key constraint violation. Please ensure that the related record exists.", ex);
+                }
                 catch (Exception ex)
                 {
-                    var hola = ex.InnerException;
+                    // Log the exception or handle it accordingly
+                    throw;
                 }
             }
         }
+
 
         private async Task<object> ExecuteScalarAsync(string query, IDictionary<string, object> parameters)
         {
@@ -225,7 +253,7 @@ namespace Ausencias.API
             return entities;
         }
 
-        public async Task<TEntity> GetByIdAsync<TEntity>(int id) where TEntity : Entity, new()
+        public async Task<TEntity> GetByIdAsync<TEntity>(string id) where TEntity : Entity, new()
         {
             TEntity entity = null;
 
