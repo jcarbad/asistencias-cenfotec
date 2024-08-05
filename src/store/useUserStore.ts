@@ -3,10 +3,14 @@ import { defineStore } from "pinia";
 export const useUserStore = defineStore("useUserStore", {
   state: () => ({
     currentUser: "",
+    accessToken: "",
   }),
   getters: {
     getCurrentUser: (state) => {
       return state.currentUser;
+    },
+    getAccessToken: (state) => {
+      return state.accessToken;
     },
   },
   actions: {
@@ -15,8 +19,14 @@ export const useUserStore = defineStore("useUserStore", {
         this.currentUser = value;
       }
     },
+    setAccessToken(value: string) {
+      if (value) {
+        this.accessToken = value;
+      }
+    },
     resetStateValues(){
         this.currentUser = ""
+        this.accessToken = ""
     }
   },
   persist: true

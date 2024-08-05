@@ -31,6 +31,7 @@ import FormContainer from "@/components/formContainer/FormContainer.vue";
 import MultiUseButton from "@/components/multiUseButton/MultiUseButton.vue";
 import { ref } from "vue";
 import { useUserStore } from "@/store/useUserStore";
+import axios from "axios";
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -42,9 +43,33 @@ const recoveryEvent = () => {
   router.push({ name: "recovery" });
 };
 
-const loginVerifier = () => {
-  userStore.setCurrentUser(usernameData.value);
-  router.push({ name: "dashboard" });
+const loginVerifier = async () => {
+
+  const data = JSON.stringify({
+    username: usernameData.value,
+    email: usernameData.value,
+    password: passwordData.value,
+  });
+
+  await axios
+    .post(
+      "http://asistencias-api.us-east-1.elasticbeanstalk.com/api/Auth/login",
+      data,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+    .then((response) => {
+      userStore.setCurrentUser(usernameData.value);
+      let token = response.data.token.result;
+      userStore.setAccessToken(token);
+      router.push({ name: "dashboard" });
+    })
+    .catch((error) => {
+      console.dir(error);
+    });
 };
 </script>
 
