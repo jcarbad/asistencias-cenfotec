@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jlap0\\source\\repos\\Ausencias.API\\Ausencias.API\\Ausencias.API.csproj": {}
+    "/Users/joan.carballo/Documents/MISAD/II - 2024/Diseño de Sistemas/proyecto/asistencias/asistencias.API/Ausencias.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jlap0\\source\\repos\\Ausencias.API\\Ausencias.API\\Ausencias.API.csproj": {
+    "/Users/joan.carballo/Documents/MISAD/II - 2024/Diseño de Sistemas/proyecto/asistencias/asistencias.API/Ausencias.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jlap0\\source\\repos\\Ausencias.API\\Ausencias.API\\Ausencias.API.csproj",
+        "projectUniqueName": "/Users/joan.carballo/Documents/MISAD/II - 2024/Diseño de Sistemas/proyecto/asistencias/asistencias.API/Ausencias.API.csproj",
         "projectName": "Ausencias.API",
-        "projectPath": "C:\\Users\\jlap0\\source\\repos\\Ausencias.API\\Ausencias.API\\Ausencias.API.csproj",
-        "packagesPath": "C:\\Users\\jlap0\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jlap0\\source\\repos\\Ausencias.API\\Ausencias.API\\obj\\",
+        "projectPath": "/Users/joan.carballo/Documents/MISAD/II - 2024/Diseño de Sistemas/proyecto/asistencias/asistencias.API/Ausencias.API.csproj",
+        "packagesPath": "/Users/joan.carballo/.nuget/packages/",
+        "outputPath": "/Users/joan.carballo/Documents/MISAD/II - 2024/Diseño de Sistemas/proyecto/asistencias/asistencias.API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\jlap0\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/joan.carballo/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -48,6 +46,10 @@
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[8.0.6, )"
+            },
+            "Microsoft.AspNetCore.Cors": {
+              "target": "Package",
+              "version": "[2.2.0, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
@@ -95,7 +97,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
