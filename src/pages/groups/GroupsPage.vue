@@ -17,7 +17,11 @@
             <td>{{ item.grupo }}</td>
             <td>{{ item.anno }}</td>
             <td>
-              <MultiUseButton :textValue="'Editar'" :buttonType="'link'" />
+              <MultiUseButton
+                :textValue="'Editar'"
+                :buttonType="'link'"
+                @click="createGroupEvent(item.id.toString())"
+              />
               <MultiUseButton
                 :textValue="'Eliminar'"
                 :buttonType="'link'"
@@ -31,9 +35,9 @@
         :modalActive="showConfirmationModal"
         @closeModal="closeConfirmationModal"
       >
-      <template #content>
-        <label>El registro ha sido eliminado correctamente</label>
-      </template>
+        <template #content>
+          <label>El registro ha sido eliminado correctamente</label>
+        </template>
       </ConfirmModal>
     </template>
   </MainLayout>
@@ -60,7 +64,7 @@ interface GroupData {
 const router = useRouter();
 const userStore = useUserStore();
 let showConfirmationModal = ref(false);
-let modalMessage = ref("")
+let modalMessage = ref("");
 
 const tableHeaders: IDataTableInfo[] = [
   {
