@@ -2,9 +2,9 @@
   <div style="margin-top: 10px; width: 300px;">
     <label class="dropdown-label-standard">
       {{ props.title }}
-      <select class="dropdown-standard" @change="changeValueEvent">
+      <select class="dropdown-standard">
         <option id="" value="">Seleccione</option>
-        <option v-for="item in props.itemValues" :id="item.id" :key="item.id" :value="item.id">
+        <option v-for="item in props.itemValues" :id="item.id" :key="item.id" :value="item.id" :selected="modelValue===item.id">
           {{ item.value }}
         </option>
       </select>

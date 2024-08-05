@@ -68,7 +68,7 @@ import { IDataTableInfo } from "@/models/IDataTableInfo";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import { useUserStore } from "@/store/useUserStore";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 interface GroupInfo {
   grupoId: string;
@@ -160,13 +160,20 @@ const estadoItems: IDataTableInfo[] = [
   },
 ];
 
+onMounted(() => {
+  console.log(route.params.id);
+  if (route.params.id !== "0") {
+    getGroupById(route.params.id.toString());
+  }
+});
+
 const goBackToGroupList = async () => {
   goBack();
 };
 
 const saveGroupInfo = async () => {
   const data = JSON.stringify({
-    grupoId: route.params.id,
+    grupoId: grupoAux.value.grupoId,
     nivel: grupoAux.value.nivel,
     grupoNumero: grupoAux.value.grupoNumero,
     subGrupo: "A",
@@ -176,6 +183,14 @@ const saveGroupInfo = async () => {
     estatus: grupoAux.value.estatus,
   });
 
+  if (grupoAux.value.grupoId === "0") {
+    create(data);
+  } else {
+    update(data);
+  }
+};
+
+async function create(data: string) {
   await axios
     .post(
       "http://asistencias-api.us-east-1.elasticbeanstalk.com/api/Grupo/Create",
@@ -195,7 +210,55 @@ const saveGroupInfo = async () => {
     .catch((error) => {
       console.dir(error);
     });
-};
+}
+
+async function update(data: string) {
+  await axios
+    .patch(
+      "http://asistencias-api.us-east-1.elasticbeanstalk.com/api/Grupo/Update",
+      data,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + userStore.getAccessToken,
+        },
+      }
+    )
+    .then((response) => {
+      router.push({
+        name: "groups",
+      });
+    })
+    .catch((error) => {
+      console.dir(error);
+    });
+}
+
+async function getGroupById(groupId: string) {
+  await axios
+    .get(
+      "http://asistencias-api.us-east-1.elasticbeanstalk.com/api/Grupo/Get/" +
+        groupId,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + userStore.getAccessToken,
+        },
+      }
+    )
+    .then((response) => {
+      for (let row of response.data.result) {
+        grupoAux.value.grupoId = row.grupoId;
+        grupoAux.value.nivel = row.nivel.toString();
+        grupoAux.value.grupoNumero = row.grupoNumero.toString();
+        grupoAux.value.estatus = row.estatus.toString().replace(/ /g, "");
+        grupoAux.value.anno = row.anno.toString();
+      }
+    })
+    .catch((error) => {
+      console.dir(error);
+    });
+}
 
 function goBack() {
   router.push({
