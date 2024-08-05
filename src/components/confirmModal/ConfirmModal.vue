@@ -17,7 +17,7 @@
             />
           </svg>
           <!-- Modal Content -->
-          <slot />
+          <slot name="content" />
           <MultiUseButton :textValue="'Cerrar'" :buttonType="'primary'" @click="close" />
         </div>
       </transition>
@@ -28,7 +28,7 @@
 <script lang="ts" setup>
 import MultiUseButton from '../multiUseButton/MultiUseButton.vue';
 /* eslint-disable */
-const emit = defineEmits(["close"]);
+const emit = defineEmits(["closeModal"]);
 
 const props = defineProps({
   modalActive: {
@@ -38,7 +38,7 @@ const props = defineProps({
 });
 
 const close = () => {
-  emit("close");
+  emit("closeModal");
 };
 </script>
 
