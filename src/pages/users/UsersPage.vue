@@ -17,12 +17,20 @@
             <td>{{ item.apellido1 }}</td>
             <td>{{ item.apellido2 }}</td>
             <td>
-              <MultiUseButton :textValue="'Editar'" :buttonType="'link'" />
-              <MultiUseButton :textValue="'Eliminar'" :buttonType="'link'" />
+              <MultiUseButton :textValue="'Editar'" :buttonType="'link'" @click="createAdminEvent(item.id.toString())"/>
+              <MultiUseButton :textValue="'Eliminar'" :buttonType="'link'" @click="deleteAdminById(item.id.toString())"/>
             </td>
           </tr>
         </template>
       </DataTable>
+      <ConfirmModal
+        :modalActive="showConfirmationModal"
+        @closeModal="closeConfirmationModal"
+      >
+        <template #content>
+          <h2>El registro ha sido eliminado correctamente</h2>
+        </template>
+      </ConfirmModal>
     </template>
   </MainLayout>
 </template>
@@ -31,10 +39,26 @@
 import MainLayout from "@/layouts/MainLayout.vue";
 import MultiUseButton from "@/components/multiUseButton/MultiUseButton.vue";
 import DataTable from "@/components/dataTable/DataTable.vue";
+import ConfirmModal from "@/components/confirmModal/ConfirmModal.vue";
+import axios from "axios";
+import { onMounted, ref } from "vue";
+import { useUserStore } from "@/store/useUserStore";
 import { IDataTableInfo } from "@/models/IDataTableInfo";
 import { useRouter } from "vue-router";
 
+
+interface AdminData {
+  id: string;
+  nombre: string;
+  apellido1: string;
+  apellido2: string;
+  email: string;
+}
+
 const router = useRouter();
+const userStore = useUserStore();
+let showConfirmationModal = ref(false);
+let modalMessage = ref("");
 
 const tableHeaders : IDataTableInfo[] = [
   {
@@ -59,29 +83,7 @@ const tableHeaders : IDataTableInfo[] = [
   },
 ];
 
-const tableData = [
-  {
-    id: "111111111",
-    nombre: "Armando José",
-    apellido1: "Ayala",
-    apellido2: "Córdoba",
-    acciones: "",
-  },
-  {
-    id: "222222222",
-    nombre: "Jose Leonardo",
-    apellido1: "Araya",
-    apellido2: "Parajeles",
-    acciones: "",
-  },
-  {
-    id: "333333333",
-    nombre: "Joan Armando",
-    apellido1: "Carballo",
-    apellido2: "Badilla",
-    acciones: "",
-  },
-];
+const tableData = ref<AdminData[]>([]);
 
 const createAdminEvent = (id:string) => {
   router.push({
@@ -92,6 +94,76 @@ const createAdminEvent = (id:string) => {
   });
 };
 
+
+const getAdminData = () => {
+  getAdminListInfo();
+};
+
+const closeConfirmationModal = () => {
+  showConfirmationModal.value = false;
+  window.location.reload();
+};
+
+const deleteAdminById = async (groupId: string) => {
+  let result = (await deleteGroupInfoById(groupId)).valueOf();
+  if (result) {
+    modalMessage.value = "El registro ha sido eliminado correctamente";
+    showConfirmationModal.value = true;
+  }
+};
+
+onMounted(() => {
+  getAdminData();
+});
+
+async function getAdminListInfo() {
+  await axios
+    .get(
+      "http://asistencias-api.us-east-1.elasticbeanstalk.com/api/Administrativo/Get",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + userStore.getAccessToken,
+        },
+      }
+    )
+    .then((response) => {
+      for (let row of response.data.result) {
+        tableData.value?.push({
+          id: row.administrativoId,
+          nombre: row.nombre,
+          apellido1: row.apellido1,
+          apellido2: row.apellido2,
+          email: row.email
+        });
+      }
+    })
+    .catch((error) => {
+      console.dir(error);
+    });
+}
+
+async function deleteGroupInfoById(groupId: string): Promise<boolean> {
+  let response = await axios
+    .delete(
+      "http://asistencias-api.us-east-1.elasticbeanstalk.com/api/Administrativo/Delete/" +
+        groupId,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + userStore.getAccessToken,
+        },
+      }
+    )
+    .then((response) => {
+      return true;
+    })
+    .catch((error) => {
+      return false;
+    });
+
+  return response;
+}
 </script>
 
 <style lang="scss" scoped>

@@ -36,7 +36,7 @@
         @closeModal="closeConfirmationModal"
       >
         <template #content>
-          <label>El registro ha sido eliminado correctamente</label>
+          <h2>El registro ha sido eliminado correctamente</h2>
         </template>
       </ConfirmModal>
     </template>
@@ -51,7 +51,7 @@ import { IDataTableInfo } from "@/models/IDataTableInfo";
 import ConfirmModal from "@/components/confirmModal/ConfirmModal.vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
-import { onMounted, Ref, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useUserStore } from "@/store/useUserStore";
 
 interface GroupData {
