@@ -40,6 +40,7 @@ namespace Ausencias.API
         public async Task<Grupo> Create()
         {
             this.GrupoId = Guid.NewGuid().ToString();
+            this.Estatus = "Activo";
             int newId = await this.InsertAsync();
             return this;
         }

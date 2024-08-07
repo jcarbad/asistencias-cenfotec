@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
+
 
 namespace Ausencias.API
 {
@@ -44,7 +46,7 @@ namespace Ausencias.API
 
         [Column("cantidad")]
         public byte Cantidad { get; set; }
-
+        //[JsonExclude]
         public override string TableName => "registroAusencias";
 
         // Método para crear registros de ausencias

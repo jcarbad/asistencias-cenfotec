@@ -17,6 +17,7 @@ namespace Ausencias.API.Controllers
             try
             {
                 estudiante.EstudianteId = Guid.NewGuid().ToString();
+                estudiante.Estatus = "Activo";
                 await estudiante.InsertAsync();
                 return Ok(new { Result = "Estudiante created successfully", EstudianteId = estudiante.EstudianteId });
             }
@@ -65,6 +66,7 @@ namespace Ausencias.API.Controllers
         {
             try
             {
+                estudiante.Estatus = "Activo";
                 await estudiante.UpdateAsync("EstudianteId");
                 return Ok(new { Result = "Estudiante updated successfully" });
             }

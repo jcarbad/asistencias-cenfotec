@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Ausencias.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9cc4721867836a4cb8466f160c94e345e338a3e8")]
 [assembly: System.Reflection.AssemblyProductAttribute("Ausencias.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Ausencias.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

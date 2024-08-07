@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jlap0\\source\\repos\\Ausencias.API\\Ausencias.API\\Ausencias.API.csproj": {}
+    "C:\\Users\\User\\Documents\\GitHub\\asistencias-cenfotec\\asistencias.API\\Ausencias.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jlap0\\source\\repos\\Ausencias.API\\Ausencias.API\\Ausencias.API.csproj": {
+    "C:\\Users\\User\\Documents\\GitHub\\asistencias-cenfotec\\asistencias.API\\Ausencias.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jlap0\\source\\repos\\Ausencias.API\\Ausencias.API\\Ausencias.API.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\asistencias-cenfotec\\asistencias.API\\Ausencias.API.csproj",
         "projectName": "Ausencias.API",
-        "projectPath": "C:\\Users\\jlap0\\source\\repos\\Ausencias.API\\Ausencias.API\\Ausencias.API.csproj",
-        "packagesPath": "C:\\Users\\jlap0\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jlap0\\source\\repos\\Ausencias.API\\Ausencias.API\\obj\\",
+        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\asistencias-cenfotec\\asistencias.API\\Ausencias.API.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\asistencias-cenfotec\\asistencias.API\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\jlap0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

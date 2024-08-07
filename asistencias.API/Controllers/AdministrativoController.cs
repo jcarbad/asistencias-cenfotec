@@ -19,6 +19,7 @@ namespace Ausencias.API.Controllers
             try
             {
                 administrativo.AdministrativoId = Guid.NewGuid().ToString();
+                administrativo.Estatus = "Activo";
                 await administrativo.InsertAsync();
                 return Ok(new { Result = "Administrativo created successfully", AdministrativoId = administrativo.AdministrativoId });
             }
@@ -67,6 +68,7 @@ namespace Ausencias.API.Controllers
         {
             try
             {
+                administrativo.Estatus = "Activo";
                 await administrativo.UpdateAsync("AdministrativoId");
                 return Ok(new { Result = "Administrativo updated successfully" });
             }

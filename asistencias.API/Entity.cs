@@ -117,8 +117,6 @@ namespace Ausencias.API
 
             await ExecuteNonQueryAsync(query, parameters);
         }
-
-
         private async Task ExecuteNonQueryAsync(string query, Dictionary<string, object> parameters)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -152,8 +150,6 @@ namespace Ausencias.API
                 }
             }
         }
-
-
         private async Task<object> ExecuteScalarAsync(string query, IDictionary<string, object> parameters)
         {
             try
@@ -186,7 +182,6 @@ namespace Ausencias.API
                 return null;
             }
         }
-
         private IEnumerable<string> GetParameterNames(IEnumerable<string> columnNames)
         {
             foreach (var columnName in columnNames)
@@ -315,7 +310,15 @@ namespace Ausencias.API
                         }
                         else
                         {
-                            property.SetValue(this, value);
+                            if (value is string stringValue)
+                            {
+                                // Aplicar Trim si el valor es un string
+                                property.SetValue(this, stringValue.Trim());
+                            }
+                            else
+                            {
+                                property.SetValue(this, value);
+                            }
                         }
                     }
                 }

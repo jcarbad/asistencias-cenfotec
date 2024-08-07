@@ -50,6 +50,7 @@ namespace Ausencias.API
         public async Task<Estudiante> Create()
         {
             this.EstudianteId = Guid.NewGuid().ToString();
+            this.Estatus = "Activo";
             int newId = await this.InsertAsync();
             return this;
         }

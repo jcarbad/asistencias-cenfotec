@@ -34,6 +34,7 @@ namespace Ausencias.API
         public async Task<Administrativo> Create()
         {
             this.AdministrativoId = Guid.NewGuid().ToString();
+            this.Estatus = "Activo";
             int newId = await this.InsertAsync();
             return this;
         }

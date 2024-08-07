@@ -17,6 +17,7 @@ namespace Ausencias.API.Controllers
             try
             {
                 grupo.GrupoId = Guid.NewGuid().ToString();
+                grupo.Estatus = "Activo";
                 await grupo.InsertAsync();
                 return Ok(new { Result = "Grupo created successfully", GrupoId = grupo.GrupoId });
             }
@@ -65,6 +66,7 @@ namespace Ausencias.API.Controllers
         {
             try
             {
+                grupo.Estatus = "Activo";
                 await grupo.UpdateAsync("GrupoId");
                 return Ok(new { Result = "Grupo updated successfully" });
             }
