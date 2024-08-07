@@ -6,7 +6,7 @@
           alt="Logo principal de la compañía"
           class="company-icon"
         />
-        <MenuButton :username="userStore.currentUser" />
+        <MenuButton :username="userStore.currentUser" :nvdaTextValue="'Gestión de Usuario'"/>
       </div>
     </div>
 </template>

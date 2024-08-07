@@ -55,6 +55,15 @@
           </fieldset>
         </template>
       </FormContainer>
+      <ConfirmModal
+        :modalActive="showInformationModal"
+        :modalType="'information'"
+        @closeModal="closeInformationModal"
+      >
+        <template #content>
+          <h2>{{ modalMessage }}</h2>
+        </template>
+      </ConfirmModal>
     </template>
   </MainLayout>
 </template>
@@ -64,6 +73,7 @@ import MainLayout from "@/layouts/MainLayout.vue";
 import FormContainer from "@/components/formContainer/FormContainer.vue";
 import DropdownOptions from "@/components/dropdownOptions/DropdownOptions.vue";
 import MultiUseButton from "@/components/multiUseButton/MultiUseButton.vue";
+import ConfirmModal from "@/components/confirmModal/ConfirmModal.vue";
 import { IDataTableInfo } from "@/models/IDataTableInfo";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
@@ -95,6 +105,9 @@ let grupoAux = ref<GroupInfo>({
   institutoId: "Ins1",
   estatus: "",
 });
+
+let showInformationModal = ref(false);
+let modalMessage = ref("");
 
 const nivelItems: IDataTableInfo[] = [
   {
@@ -151,11 +164,11 @@ const annoItems: IDataTableInfo[] = [
 
 const estadoItems: IDataTableInfo[] = [
   {
-    id: "SP1",
+    id: "Activo",
     value: "Activo",
   },
   {
-    id: "SP2",
+    id: "Inactivo",
     value: "Inactivo",
   },
 ];
@@ -167,11 +180,11 @@ onMounted(() => {
   }
 });
 
-const goBackToGroupList = async () => {
+const goBackToGroupList = () => {
   goBack();
 };
 
-const saveGroupInfo = async () => {
+const saveGroupInfo = () => {
   const data = JSON.stringify({
     grupoId: grupoAux.value.grupoId,
     nivel: grupoAux.value.nivel,
@@ -183,15 +196,30 @@ const saveGroupInfo = async () => {
     estatus: grupoAux.value.estatus,
   });
 
+  let result = null;
   if (grupoAux.value.grupoId === "0") {
-    create(data);
+    result = create(data);
   } else {
-    update(data);
+    result = update(data);
   }
+
+  console.log(result.valueOf());
+  if (result.valueOf() && grupoAux.value.grupoId === "0") {
+    modalMessage.value = "El registro se ha guardado correctamente";
+  } else if (result.valueOf() && grupoAux.value.grupoId !== "0") {
+    modalMessage.value = "El registro se ha actualizado correctamente";
+  } else {
+    modalMessage.value = "El registro no se ha guardado correctamente";
+  }
+  showInformationModal.value = true;
 };
 
-async function create(data: string) {
-  await axios
+const closeInformationModal = () => {
+  goBack();
+};
+
+async function create(data: string): Promise<boolean> {
+  let response = await axios
     .post(
       "http://asistencias-api.us-east-1.elasticbeanstalk.com/api/Grupo/Create",
       data,
@@ -202,14 +230,14 @@ async function create(data: string) {
         },
       }
     )
-    .then((response) => {
-      router.push({
-        name: "groups",
-      });
+    .then((result) => {
+      return true;
     })
     .catch((error) => {
-      console.dir(error);
+      return false;
     });
+
+  return response;
 }
 
 async function update(data: string) {
@@ -225,12 +253,10 @@ async function update(data: string) {
       }
     )
     .then((response) => {
-      router.push({
-        name: "groups",
-      });
+      return true;
     })
     .catch((error) => {
-      console.dir(error);
+      return false;
     });
 }
 

@@ -18,7 +18,9 @@
           </svg>
           <!-- Modal Content -->
           <slot name="content" />
-          <MultiUseButton :textValue="'Cerrar'" :buttonType="'primary'" @click="close" />
+          <MultiUseButton v-if="modalType == 'information'" :textValue="'Aceptar'" :buttonType="'primary'" @click="close" />
+          <MultiUseButton v-if="modalType == 'confirmation'" :textValue="'No'" :buttonType="'secondary'" @click="noOptionSelected" />
+          <MultiUseButton v-if="modalType == 'confirmation'" :textValue="'Sí'" :buttonType="'primary'" @click="yesOptionSelected" />
         </div>
       </transition>
     </div>
@@ -28,18 +30,30 @@
 <script lang="ts" setup>
 import MultiUseButton from '../multiUseButton/MultiUseButton.vue';
 /* eslint-disable */
-const emit = defineEmits(["closeModal"]);
+const emit = defineEmits(["closeModal", "noOptionSelected", "yesOptionSelected"]);
 
 const props = defineProps({
   modalActive: {
     type: Boolean,
     default: false,
   },
+  modalType: {
+    type: String,
+    default: "confirmation"
+  }
 });
 
 const close = () => {
   emit("closeModal");
 };
+
+const noOptionSelected = () => {
+  emit("noOptionSelected");
+}
+
+const yesOptionSelected = () => {
+  emit("yesOptionSelected");
+}
 </script>
 
 <style lang="scss" scoped>

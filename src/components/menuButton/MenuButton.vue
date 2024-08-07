@@ -1,7 +1,7 @@
 <template>
   <button
       class="menu-button"
-      alt="Abrir menú de acciones de usuario"
+      :aria-label="nvdaTextValue"
       :class="{'menu-button-selected' : isMenuOptionsVisible}"
       @click="openMenuOptions">
     {{ props.username }}
@@ -42,6 +42,10 @@ const props = defineProps({
     required: true,
     default: "username",
   },
+  nvdaTextValue: {
+    type: String,
+    required: false,
+  }
 });
 
 const router = useRouter();

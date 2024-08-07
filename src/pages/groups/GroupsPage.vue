@@ -20,11 +20,13 @@
               <MultiUseButton
                 :textValue="'Editar'"
                 :buttonType="'link'"
+                :alt="'Editar grupo ' + item.nivel + '-' + item.grupo"
                 @click="createGroupEvent(item.id.toString())"
               />
               <MultiUseButton
                 :textValue="'Eliminar'"
                 :buttonType="'link'"
+                :alt="'Eliminar grupo ' + item.nivel + '-' + item.grupo"
                 @click="deleteGroupById(item.id.toString())"
               />
             </td>
@@ -33,7 +35,18 @@
       </DataTable>
       <ConfirmModal
         :modalActive="showConfirmationModal"
-        @closeModal="closeConfirmationModal"
+        :modalType="'confirmation'"
+        @noOptionSelected="noOptionSelectedInModal"
+        @yesOptionSelected="yesOptionSelectedInModal"
+      >
+        <template #content>
+          <h2>Desea eliminar el registro?</h2>
+        </template>
+      </ConfirmModal>
+      <ConfirmModal
+        :modalActive="showInformationModal"
+        :modalType="'information'"
+        @closeModal="closeInformationModal"
       >
         <template #content>
           <h2>El registro ha sido eliminado correctamente</h2>
@@ -64,7 +77,9 @@ interface GroupData {
 const router = useRouter();
 const userStore = useUserStore();
 let showConfirmationModal = ref(false);
+let showInformationModal = ref(false);
 let modalMessage = ref("");
+let groupIdSelected = "";
 
 const tableHeaders: IDataTableInfo[] = [
   {
@@ -108,17 +123,29 @@ const getGroupData = () => {
   getGroupListInfo();
 };
 
-const closeConfirmationModal = () => {
+const noOptionSelectedInModal = () => {
   showConfirmationModal.value = false;
+};
+
+const yesOptionSelectedInModal = () => {
+  let result = (deleteGroupInfoById()).valueOf();
+  showConfirmationModal.value = false;
+  if (result) {
+    modalMessage.value = "El registro ha sido eliminado correctamente";
+  } else {
+    modalMessage.value = "El registro no ha sido eliminado correctamente";
+  }
+  showInformationModal.value = true;
+};
+
+const closeInformationModal = () => {
+  showInformationModal.value = false;
   window.location.reload();
 };
 
-const deleteGroupById = async (groupId: string) => {
-  let result = (await deleteGroupInfoById(groupId)).valueOf();
-  if (result) {
-    modalMessage.value = "El registro ha sido eliminado correctamente";
-    showConfirmationModal.value = true;
-  }
+const deleteGroupById = (groupId: string) => {
+  groupIdSelected = groupId;
+  showConfirmationModal.value = true;
 };
 
 async function getGroupListInfo() {
@@ -147,11 +174,11 @@ async function getGroupListInfo() {
     });
 }
 
-async function deleteGroupInfoById(groupId: string): Promise<boolean> {
+async function deleteGroupInfoById(): Promise<boolean> {
   let response = await axios
     .delete(
       "http://asistencias-api.us-east-1.elasticbeanstalk.com/api/Grupo/Delete/" +
-        groupId,
+      groupIdSelected,
       {
         headers: {
           "Content-Type": "application/json",
