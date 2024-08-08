@@ -11,8 +11,8 @@
           <MultiUseButton
             :button-type="'primary'"
             :textValue="'Crear Grupo'"
-            @click="createGroupEvent('0')"
             tabindex="6"
+            @click="createGroupEvent('0')"
           />
         </template>
         <template #dataRows>

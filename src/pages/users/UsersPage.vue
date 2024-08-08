@@ -2,11 +2,16 @@
   <MainLayout>
     <template #content>
       <h1>Listado Administrativos</h1>
-      <DataTable :tableHeaders="tableHeaders" additionalInformation>
+      <DataTable
+        :tableHeaders="tableHeaders"
+        :rowQuantity="tableData.length"
+        additionalInformation
+      >
         <template #additionalInformation>
           <MultiUseButton
             :button-type="'primary'"
             :textValue="'Crear Administrativo'"
+            tabindex="6"
             @click="createAdminEvent('0')"
           />
         </template>
@@ -17,15 +22,42 @@
             <td>{{ item.apellido1 }}</td>
             <td>{{ item.apellido2 }}</td>
             <td>
-              <MultiUseButton :textValue="'Editar'" :buttonType="'link'" @click="createAdminEvent(item.id.toString())"/>
-              <MultiUseButton :textValue="'Eliminar'" :buttonType="'link'" @click="deleteAdminById(item.id.toString())"/>
+              <MultiUseButton
+                :textValue="'Editar'"
+                :buttonType="'link'"
+                :aria-label="
+                  'Editar administrativo: ' + item.nombre + ' ' + item.apellido1
+                "
+                tabindex="7"
+                @click="createAdminEvent(item.id.toString())"
+              />
+              <MultiUseButton
+                :textValue="'Eliminar'"
+                :buttonType="'link'"
+                :aria-label="
+                  'Eliminar administrativo: ' + item.nombre + ' ' + item.apellido1
+                "
+                tabindex="7"
+                @click="deleteAdminById(item.id.toString())"
+              />
             </td>
           </tr>
         </template>
       </DataTable>
       <ConfirmModal
         :modalActive="showConfirmationModal"
-        @closeModal="closeConfirmationModal"
+        :modalType="'confirmation'"
+        @noOptionSelected="noOptionSelectedInModal"
+        @yesOptionSelected="yesOptionSelectedInModal"
+      >
+        <template #content>
+          <h2>Desea eliminar el registro?</h2>
+        </template>
+      </ConfirmModal>
+      <ConfirmModal
+        :modalActive="showInformationModal"
+        :modalType="'information'"
+        @closeModal="closeInformationModal"
       >
         <template #content>
           <h2>El registro ha sido eliminado correctamente</h2>
@@ -46,7 +78,6 @@ import { useUserStore } from "@/store/useUserStore";
 import { IDataTableInfo } from "@/models/IDataTableInfo";
 import { useRouter } from "vue-router";
 
-
 interface AdminData {
   id: string;
   nombre: string;
@@ -58,9 +89,11 @@ interface AdminData {
 const router = useRouter();
 const userStore = useUserStore();
 let showConfirmationModal = ref(false);
+let showInformationModal = ref(false);
 let modalMessage = ref("");
+let adminIdSelected = "";
 
-const tableHeaders : IDataTableInfo[] = [
+const tableHeaders: IDataTableInfo[] = [
   {
     id: "id",
     value: "Identificación",
@@ -85,31 +118,42 @@ const tableHeaders : IDataTableInfo[] = [
 
 const tableData = ref<AdminData[]>([]);
 
-const createAdminEvent = (id:string) => {
+const createAdminEvent = (id: string) => {
   router.push({
-    name: 'user',
+    name: "user",
     params: {
-      id: id
-    }
+      id: id,
+    },
   });
 };
 
+const deleteAdminById = (groupId: string) => {
+  adminIdSelected = groupId;
+  showConfirmationModal.value = true;
+};
 
 const getAdminData = () => {
   getAdminListInfo();
 };
 
-const closeConfirmationModal = () => {
+const noOptionSelectedInModal = () => {
   showConfirmationModal.value = false;
-  window.location.reload();
 };
 
-const deleteAdminById = async (groupId: string) => {
-  let result = (await deleteGroupInfoById(groupId)).valueOf();
+const yesOptionSelectedInModal = () => {
+  let result = deleteAdminInfoById().valueOf();
+  showConfirmationModal.value = false;
   if (result) {
     modalMessage.value = "El registro ha sido eliminado correctamente";
-    showConfirmationModal.value = true;
+  } else {
+    modalMessage.value = "El registro no ha sido eliminado correctamente";
   }
+  showInformationModal.value = true;
+};
+
+const closeInformationModal = () => {
+  showInformationModal.value = false;
+  window.location.reload();
 };
 
 onMounted(() => {
@@ -134,7 +178,7 @@ async function getAdminListInfo() {
           nombre: row.nombre,
           apellido1: row.apellido1,
           apellido2: row.apellido2,
-          email: row.email
+          email: row.email,
         });
       }
     })
@@ -143,11 +187,11 @@ async function getAdminListInfo() {
     });
 }
 
-async function deleteGroupInfoById(groupId: string): Promise<boolean> {
+async function deleteAdminInfoById(): Promise<boolean> {
   let response = await axios
     .delete(
       "http://asistencias-api.us-east-1.elasticbeanstalk.com/api/Administrativo/Delete/" +
-        groupId,
+        adminIdSelected,
       {
         headers: {
           "Content-Type": "application/json",

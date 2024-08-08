@@ -58,12 +58,14 @@
                 <div class="col-sm">
                   <MultiUseButton
                     :textValue="'Guardar'"
+                    aria-label="Guardar Información de Administrativo"
                     @click="saveAdminInfo"
                   />
                   <MultiUseButton
                     :textValue="'Regresar'"
                     :buttonType="'secondary'"
-                    @click="goBackToGroupList"
+                    aria-label="Regresar al Listado de Administrativos"
+                    @click="goBackToAdminList"
                   />
                 </div>
               </div>
@@ -71,6 +73,15 @@
           </fieldset>
         </template>
       </FormContainer>
+      <ConfirmModal
+        :modalActive="showInformationModal"
+        :modalType="'information'"
+        @closeModal="closeInformationModal"
+      >
+        <template #content>
+          <h2>{{ modalMessage }}</h2>
+        </template>
+      </ConfirmModal>
     </template>
   </MainLayout>
 </template>
@@ -81,6 +92,7 @@ import FormContainer from "@/components/formContainer/FormContainer.vue";
 import DropdownOptions from "@/components/dropdownOptions/DropdownOptions.vue";
 import MultiUseButton from "@/components/multiUseButton/MultiUseButton.vue";
 import TextField from "@/components/textField/TextField.vue";
+import ConfirmModal from "@/components/confirmModal/ConfirmModal.vue";
 import { IDataTableInfo } from "@/models/IDataTableInfo";
 import { useRoute, useRouter } from "vue-router";
 import { onMounted, ref } from "vue";
@@ -101,9 +113,12 @@ const router = useRouter();
 const route = useRoute();
 const userStore = useUserStore();
 
+let showInformationModal = ref(false);
+let modalMessage = ref("");
+
 let adminAux = ref<AdminInfo>({
   administrativoId: route.params.id[0],
-  id: "0",
+  id: "",
   nombre: "",
   apellido1: "",
   apellido2: "",
@@ -127,7 +142,11 @@ onMounted(() => {
   }
 });
 
-const goBackToGroupList = async () => {
+const closeInformationModal = () => {
+  goBack();
+};
+
+const goBackToAdminList = async () => {
   goBack();
 };
 
@@ -142,15 +161,25 @@ const saveAdminInfo = () => {
     estatus: adminAux.value.estatus,
   });
 
+  let result = null;
   if (adminAux.value.administrativoId === "0") {
-    create(data);
+    result = create(data);
   } else {
-    update(data);
+    result = update(data);
   }
+
+  if (result.valueOf() && adminAux.value.administrativoId === "0") {
+    modalMessage.value = "El registro se ha guardado correctamente";
+  } else if (result.valueOf() && adminAux.value.administrativoId !== "0") {
+    modalMessage.value = "El registro se ha actualizado correctamente";
+  } else {
+    modalMessage.value = "El registro no se ha guardado correctamente";
+  }
+  showInformationModal.value = true;
 };
 
-async function create(data: string) {
-  await axios
+async function create(data: string): Promise<boolean> {
+  let result = await axios
     .post(
       "http://asistencias-api.us-east-1.elasticbeanstalk.com/api/Administrativo/Create",
       data,
@@ -162,17 +191,16 @@ async function create(data: string) {
       }
     )
     .then((response) => {
-      router.push({
-        name: "users",
-      });
+      return true;
     })
     .catch((error) => {
-      console.dir(error);
+      return false;
     });
+  return result;
 }
 
 async function update(data: string) {
-  await axios
+  let result = await axios
     .patch(
       "http://asistencias-api.us-east-1.elasticbeanstalk.com/api/Administrativo/Update",
       data,
@@ -184,13 +212,12 @@ async function update(data: string) {
       }
     )
     .then((response) => {
-      router.push({
-        name: "users",
-      });
+      return true;
     })
     .catch((error) => {
-      console.dir(error);
+      return false;
     });
+  return result;
 }
 
 async function getAdminById(groupId: string) {
@@ -207,12 +234,13 @@ async function getAdminById(groupId: string) {
     )
     .then((response) => {
       for (let row of response.data.result) {
-        adminAux.value.administrativoId = row.adminstrativoId;
+        adminAux.value.administrativoId = row.administrativoId;
+        adminAux.value.id = row.id;
         adminAux.value.nombre = row.nombre;
         adminAux.value.apellido1 = row.apellido1;
         adminAux.value.apellido2 = row.apellido2;
         adminAux.value.email = row.email;
-        adminAux.value.estatus = row.estatus.toString().replace(/ /g, "");
+        adminAux.value.estatus = row.estatus;
       }
     })
     .catch((error) => {

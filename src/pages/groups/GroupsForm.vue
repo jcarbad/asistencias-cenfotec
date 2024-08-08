@@ -205,7 +205,6 @@ const saveGroupInfo = () => {
     result = update(data);
   }
 
-  console.log(result.valueOf());
   if (result.valueOf() && grupoAux.value.grupoId === "0") {
     modalMessage.value = "El registro se ha guardado correctamente";
   } else if (result.valueOf() && grupoAux.value.grupoId !== "0") {
