@@ -3,8 +3,8 @@
     <label class="dropdown-label-standard">
       {{ props.title }}
       <select class="dropdown-standard" @change="changeValueEvent">
-        <option id="" value="">Seleccione</option>
-        <option v-for="item in props.itemValues" :id="item.id" :key="item.id" :value="item.id" :selected="modelValue===item.id">
+        <option id="" value="" :aria-label="'Seleccione ' + props.title" tabindex="-1">Seleccione</option>
+        <option v-for="item in props.itemValues" :id="item.id" :key="item.id" :value="item.id" :selected="modelValue===item.id" :aria-label="'Opción Seleccionada: ' + item.value">
           {{ item.value }}
         </option>
       </select>

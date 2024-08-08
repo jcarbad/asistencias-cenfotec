@@ -1,9 +1,10 @@
 <template>
   <button
       class="menu-button"
-      :aria-label="nvdaTextValue"
+      :aria-label="props.nvdaTextValue"
       :class="{'menu-button-selected' : isMenuOptionsVisible}"
-      @click="openMenuOptions">
+      @click="openMenuOptions"
+      tabindex="1">
     {{ props.username }}
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -22,9 +23,9 @@
     </svg>
   </button>
   <div v-show="isMenuOptionsVisible" class="menu-items-container">
-    <ul class="item-container-options">
+    <ul class="item-container-options" aria-label="Listado de opciones del usuario">
       <MenuItem :itemValue="'Configuración'" />
-      <MenuItem :itemValue="'Cerrar sesión'" @logout="logoutEvent" />
+      <MenuItem :itemValue="'Cerrar sesión'" @logout="logoutEvent"/>
     </ul>
   </div>
 </template>
@@ -55,6 +56,9 @@ const isMenuOptionsVisible = ref(false)
 
 const openMenuOptions = () => {
   isMenuOptionsVisible.value = !isMenuOptionsVisible.value
+  if(isMenuOptionsVisible.value){
+    document.getElementById('Cerrar sesión')?.focus();
+  }
 }
 
 const logoutEvent = () => {

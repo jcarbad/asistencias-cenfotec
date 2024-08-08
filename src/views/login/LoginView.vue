@@ -1,7 +1,7 @@
 <template>
   <FormContainer isCentered>
     <template #formInformation>
-      <fieldset>
+      <fieldset aria-label="Formulario de ingreso al sistema">
         <h1>Ingresar</h1>
         <TextField
           :textFieldType="'text'"

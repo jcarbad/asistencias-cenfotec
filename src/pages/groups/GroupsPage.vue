@@ -2,12 +2,17 @@
   <MainLayout>
     <template #content>
       <h1>Listado de Grupos</h1>
-      <DataTable :tableHeaders="tableHeaders" additionalInformation>
+      <DataTable
+        :tableHeaders="tableHeaders"
+        :rowQuantity="tableData.length"
+        additionalInformation
+      >
         <template #additionalInformation>
           <MultiUseButton
             :button-type="'primary'"
             :textValue="'Crear Grupo'"
             @click="createGroupEvent('0')"
+            tabindex="6"
           />
         </template>
         <template #dataRows>
@@ -20,14 +25,30 @@
               <MultiUseButton
                 :textValue="'Editar'"
                 :buttonType="'link'"
-                :alt="'Editar grupo ' + item.nivel + '-' + item.grupo"
+                :aria-label="
+                  'Editar grupo: ' +
+                  item.nivel +
+                  '-' +
+                  item.grupo +
+                  ' del año ' +
+                  item.anno
+                "
                 @click="createGroupEvent(item.id.toString())"
+                tabindex="7"
               />
               <MultiUseButton
                 :textValue="'Eliminar'"
                 :buttonType="'link'"
-                :alt="'Eliminar grupo ' + item.nivel + '-' + item.grupo"
+                :aria-label="
+                  'Eliminar grupo: ' +
+                  item.nivel +
+                  '-' +
+                  item.grupo +
+                  ' del año ' +
+                  item.anno
+                "
                 @click="deleteGroupById(item.id.toString())"
+                tabindex="7"
               />
             </td>
           </tr>
@@ -128,7 +149,7 @@ const noOptionSelectedInModal = () => {
 };
 
 const yesOptionSelectedInModal = () => {
-  let result = (deleteGroupInfoById()).valueOf();
+  let result = deleteGroupInfoById().valueOf();
   showConfirmationModal.value = false;
   if (result) {
     modalMessage.value = "El registro ha sido eliminado correctamente";
@@ -178,7 +199,7 @@ async function deleteGroupInfoById(): Promise<boolean> {
   let response = await axios
     .delete(
       "http://asistencias-api.us-east-1.elasticbeanstalk.com/api/Grupo/Delete/" +
-      groupIdSelected,
+        groupIdSelected,
       {
         headers: {
           "Content-Type": "application/json",

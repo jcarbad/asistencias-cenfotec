@@ -6,7 +6,7 @@
     <slot name="additionalInformation"></slot>
   </div>
   <div class="table-data-container">
-    <table class="table table-striped">
+    <table class="table table-striped" :aria-label="'Listado con ' + tableHeaders?.length  + ' registros'">
       <thead class="table-header">
         <th v-for="item in props.tableHeaders" :key="item.id" scope="col">
           {{ item.value }}
@@ -33,6 +33,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  rowQuantity: {
+    type: Number,
+    default: 0
+  }
 });
 </script>
 

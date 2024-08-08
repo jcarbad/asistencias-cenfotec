@@ -2,7 +2,7 @@
   <MainLayout>
     <template #content>
       <h1>Información de Grupo</h1>
-      <FormContainer style="width: 45vw; margin-left: auto; margin-right: auto">
+      <FormContainer style="width: 45vw; margin-left: auto; margin-right: auto;">
         <template #formInformation>
           <fieldset>
             <div class="container">
@@ -42,11 +42,13 @@
                 <div class="col-sm">
                   <MultiUseButton
                     :textValue="'Guardar'"
+                    aria-label="Guardar Información de Grupo"
                     @click="saveGroupInfo"
                   />
                   <MultiUseButton
                     :textValue="'Regresar'"
                     :buttonType="'secondary'"
+                    aria-label="Regresar al Listado de Grupos"
                     @click="goBackToGroupList"
                   />
                 </div>

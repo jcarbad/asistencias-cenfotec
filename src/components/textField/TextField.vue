@@ -5,6 +5,7 @@
       <input
         :type="props.textFieldType"
         :value="modelValue"
+        :aria-label="'Ingrese el valor del ' + props.textFieldHeader"
         @input="handleInput($event)"
         class="textfield-standard"
       />

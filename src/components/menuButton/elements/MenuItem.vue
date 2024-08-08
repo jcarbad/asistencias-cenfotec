@@ -1,5 +1,5 @@
 <template>
-    <li class="menu-item" @click="customEmitEvent">
+    <li class="menu-item" @click="customEmitEvent" tabindex="1" :id="props.itemValue">
         {{ props.itemValue }}
     </li>
 </template>

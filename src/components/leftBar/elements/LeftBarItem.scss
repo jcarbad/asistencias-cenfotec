@@ -5,13 +5,32 @@
     height: 50px;
     align-content: center;
     text-align: left;
+    text-decoration: none;
     font-size: 20px;
     font-weight: bold;
     list-style: none;
     padding-left: 5px;
+    display: block;
+    transition: 1s;
 }
 
-li:hover {
+.left-bar-item-collapsed {
+    background-color: $primaryBlue;
+    color: white; 
+    width: 60px;
+    height: 50px;
+    align-content: center;
+    text-align: left;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    list-style: none;
+    padding-left: 5px;
+    display: block;
+    transition: 1s;
+}
+
+a:hover {
     background-color: $whitePrincipal;
     color: $primaryGreen;
 }
@@ -21,5 +40,5 @@ li:hover {
 }
 
 .icon-collapsed {
-    margin: 0px 0px 5px 155px;
+    margin: 0px 0px 5px 15px;
 }

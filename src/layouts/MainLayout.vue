@@ -1,6 +1,6 @@
 <template>
     <header><MenuBar/></header>
-    <nav><LeftBar/></nav>
+    <LeftBar/>
     <main class="main-container" id="main-container">
         <div class="internal-container">
             <slot name="content"></slot>

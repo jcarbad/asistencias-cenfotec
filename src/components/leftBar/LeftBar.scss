@@ -1,6 +1,6 @@
 .left-bar {
     position: fixed;
-    top: 60px;
+    top: 8vh;
     height: 100%;
     width: 200px;
     background-color: $primaryBlue;
@@ -20,7 +20,7 @@
 
 .left-bar-collapsed {
     position: fixed;
-    top: 60px;
+    top: 8vh;
     height: 100%;
     width: 60px;
     background-color: $primaryBlue;
