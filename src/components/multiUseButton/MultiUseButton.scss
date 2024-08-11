@@ -18,6 +18,13 @@
     border: solid;
     border-color: $primaryBlue;
   }
+
+  &:focus {
+    background-color: $whitePrincipal;
+    color: $primaryBlue;
+    border: solid;
+    border-color: $whitePrincipal;
+  }
 }
 
 .secondary-button {
@@ -39,6 +46,13 @@
     color: $whitePrincipal;
     border: solid;
     border-color: $primaryBlue;
+  }
+
+  &:focus{
+    background-color: $primaryBlue;
+    color: $whitePrincipal;
+    border: solid;
+    border-color: $whitePrincipal;
   }
 }
 

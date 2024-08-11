@@ -38,6 +38,7 @@
               />
               <MultiUseButton
                 :textValue="'Eliminar'"
+                :idValue="item.id.toString()"
                 :buttonType="'link'"
                 :aria-label="
                   'Eliminar grupo: ' +
@@ -57,8 +58,9 @@
       <ConfirmModal
         :modalActive="showConfirmationModal"
         :modalType="'confirmation'"
+        aria-label="Desea eliminar el registro?"
         @noOptionSelected="noOptionSelectedInModal"
-        @yesOptionSelected="yesOptionSelectedInModal"
+        @yesOptionSelected="yesOptionSelectedInModal"  
       >
         <template #content>
           <h2>Desea eliminar el registro?</h2>
@@ -167,6 +169,7 @@ const closeInformationModal = () => {
 const deleteGroupById = (groupId: string) => {
   groupIdSelected = groupId;
   showConfirmationModal.value = true;
+  document.getElementById(groupId)?.blur()
 };
 
 async function getGroupListInfo() {

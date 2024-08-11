@@ -1,19 +1,19 @@
 <template>
-  <button
-    alt="Botón de {{ props.textValue }}"
+  <input 
+    type="button"
+    :value="props.textValue"
+    :id="valueForId"
     :class="{
       'primary-button': buttonType === 'primary',
       'secondary-button': buttonType === 'secondary',
       'warning-button': buttonType === 'warning',
       'link-button': buttonType === 'link',
     }"
-    @click="loginEvent"
-  >
-    {{ props.textValue }}
-  </button>
+  />
 </template>
 
 <script lang="ts" setup>
+
 // eslint-disable-next-line
 const props = defineProps({
   buttonType: {
@@ -26,14 +26,17 @@ const props = defineProps({
     required: true,
     default: "Button",
   },
+  idValue: {
+    type: String,
+    required: false,
+  },
 });
+
+const valueForId = props.idValue ? props.idValue : props.textValue;
 
 // eslint-disable-next-line
 const emit = defineEmits(["clickEvent"]);
 
-const loginEvent = () => {
- // emit("clickEvent");
-};
 </script>
 
 <style lang="scss" scoped>
